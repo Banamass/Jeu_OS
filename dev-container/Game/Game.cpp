@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "MenuMain.h"
 
 Game::Game() : vga(640, 480, VBE_MODE::_8), player1(&vga), player2(&vga){
     vga.init();
@@ -21,6 +22,7 @@ Game::~Game(){
 }
 
 void Game::run(){
+
     while(1){
         Update(0.1f);
         Render();
