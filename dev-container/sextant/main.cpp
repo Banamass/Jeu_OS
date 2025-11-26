@@ -24,7 +24,7 @@
 #include <drivers/vga.h>
 #include <drivers/EcranBochs.h>
 
-#include <sextant/sprite.h>
+#include <sextant/Sprite/Zelda.h>
 
 
 extern char __e_kernel,__b_kernel, __b_data, __e_data,  __b_stack, __e_load ;
@@ -41,7 +41,7 @@ void demo_vga() {
 	while(1) {
 		clear_vga_screen(0); // put the color 0 on each pixel
 		plot_square(offset, 50, 25, 4); // plot a square of 25 width at 50,50 of color 4
-		draw_sprite(sprite_door_data, 32, 32, 100,100); // draw the 32x32 sprite at 100,100
+		draw_sprite(sprite_zelda_walk, ZELDA_WIDTH, ZELDA_HEIGHT, 100,100); // draw the 32x32 sprite at 100,100
 		offset = (offset + 1) % 640;
 	}
 }
@@ -59,7 +59,7 @@ void demo_bochs_8() {
 	int offset = 0;
 	while (true) {
 		vga.clear(1);
-		vga.plot_sprite(sprite_data, SPRITE_WIDTH, SPRITE_HEIGHT, offset, 200);
+		vga.plot_sprite(sprite_zelda_attack2, ZELDA_WIDTH, ZELDA_HEIGHT, offset, 200);
 		offset = (offset+1) % (640);
 		vga.swapBuffer(); // call this after you finish drawing your frame to display it, it avoids screen tearing
 	}
