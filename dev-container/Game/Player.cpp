@@ -12,10 +12,15 @@ void Player::Update(double dt){
     else
         return;
 }
+
 void Player::Render(){
     vga->plot_sprite(sprite_data, SPRITE_WIDTH, SPRITE_HEIGHT, offset, 100);
 }
 
 void Player::SetKeyConfig(KeyConfig& l_kconf){
     kconf = l_kconf;
+}
+
+int Player::GetPercentage(){
+    return 1;
 }

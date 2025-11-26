@@ -24,12 +24,15 @@ public:
 
     void SetKeyConfig(KeyConfig& kconf);
 
+    int GetPercentage();
+
 private:
     EcranBochs* vga;
     Clavier clavier;
     KeyConfig kconf;
 
     int offset;
+
 };
 
 #endif
