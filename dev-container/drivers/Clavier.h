@@ -12,6 +12,10 @@
 class Clavier {
 public :
 	/***
+	 * Consomme le dernier character tapé
+	 ***/
+	char consumne();
+	/***
 	 * Recupere le premier caractere tape.
 	 ***/
 	char getchar();

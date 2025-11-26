@@ -14,7 +14,7 @@ int posBuf=0;
 char buf[256];
 bool modifBuf=false;
 
-
+bool key_pressed[126];
 
 int writechar(int sc) {
 	int ch = 0;
@@ -171,6 +171,13 @@ void handler_clavier(int irq) {
 	int cc;
 	static int show_all = 0;
 	static int doit = 0;
+
+	if (c < 0x80) {
+		key_pressed[c] = true;
+	}
+	else if (c < 0xE0) {
+		key_pressed[c & 0x7F] = false; // mask bit 0 which indicate key up
+	}
 
 	if(c == 1)/* 1 = ESC */
 		show_all = !show_all;
