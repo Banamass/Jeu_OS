@@ -24,6 +24,7 @@
 #include <drivers/vga.h>
 #include <drivers/EcranBochs.h>
 
+#include <sextant/sprite.h>
 #include <sextant/Sprite/Zelda.h>
 
 #include "Game/Game.h"
