@@ -8,12 +8,12 @@ Game::Game() : vga(640, 480, VBE_MODE::_8), player1(&vga), player2(&vga){
     vga.set_palette(palette_vga);
 
     KeyConfig kconf;
-    kconf.left = 'q';
-    kconf.right = 'd';
+    kconf.left = AZERTY::K_Q;
+    kconf.right = AZERTY::K_D;
     player1.SetKeyConfig(kconf);
 
-    kconf.left = 'k';
-    kconf.right = 'm';
+    kconf.left = AZERTY::K_K;;
+    kconf.right = AZERTY::K_M;
     player2.SetKeyConfig(kconf);
 }
 Game::~Game(){

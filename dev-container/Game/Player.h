@@ -6,12 +6,12 @@
 #include "drivers/Clavier.h"
 
 struct KeyConfig{
-    char left;
-    char right;
-    char jump;
-    char attack;
-    char special;
-    char block;
+    ui8_t left;
+    ui8_t right;
+    ui8_t jump;
+    ui8_t attack;
+    ui8_t special;
+    ui8_t block;
 };
 
 class Player{
