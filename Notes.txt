@@ -1,0 +1,10 @@
+Technique
+boch driver -> _8 ou _32
+
+
+
+
+Game design:
+
+Actions : 6 touches -> gauche droite sauter attaque spécial bloquage
+

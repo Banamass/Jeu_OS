@@ -3,6 +3,7 @@
 extern bool modifBuf;
 extern char buf[256];
 extern int posBuf;
+extern bool key_pressed[126];
 
 bool Clavier::testChar() {//Retourne vrai si un caract�re a �t� saisi au clavier
 	return modifBuf;
@@ -24,4 +25,8 @@ char* Clavier::getString(){
 
 void Clavier::set_leds(void) {
 	ecrireOctet(0x60, 0xED);
+}
+
+bool Clavier::is_pressed(ui8_t sc) {
+	return key_pressed[sc];
 }
