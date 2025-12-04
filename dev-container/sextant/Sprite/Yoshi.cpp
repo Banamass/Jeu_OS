@@ -1044,7 +1044,7 @@ unsigned char sprite_yoshi_idle[YOSHI_WIDTH*YOSHI_HEIGHT] = {
  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,
  15,  15,  15,  15,  15,  15,  15,  15 };
 
-unsigned char sprite_yoshi_walk[YOSHI_WIDTH*YOSHI_HEIGHT] = {
+ unsigned char sprite_yoshi_walk[YOSHI_WIDTH*YOSHI_HEIGHT] = {
  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,
  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,
  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,  15,

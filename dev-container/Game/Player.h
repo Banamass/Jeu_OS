@@ -3,6 +3,9 @@
 
 #include "drivers/EcranBochs.h"
 #include "sextant/sprite.h"
+#include "sextant/Sprite/Zelda.h"
+#include "sextant/Sprite/Yoshi.h"
+#include "sextant/Sprite/DK.h"
 #include "drivers/Clavier.h"
 
 struct KeyConfig{
