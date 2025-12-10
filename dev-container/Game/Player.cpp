@@ -14,7 +14,7 @@ void Player::Update(double dt){
 }
 
 void Player::Render(){
-    vga->plot_sprite(sprite_yoshi_idle, YOSHI_WIDTH, YOSHI_HEIGHT, offset, 100);
+    vga->plot_sprite(sprite_yoshi_block, YOSHI_WIDTH, YOSHI_HEIGHT, offset, 100);
 }
 
 void Player::SetKeyConfig(KeyConfig& l_kconf){

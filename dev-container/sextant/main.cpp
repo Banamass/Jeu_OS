@@ -137,7 +137,7 @@ extern "C" void Sextant_main(unsigned long magic, unsigned long addr){
     }
 
 	Game game;
-	//game.run();
+	game.run();
 
 	// demo_vga();
 
