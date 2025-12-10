@@ -1,5 +1,21 @@
 #include "Yoshi.h"
 
+unsigned char* getYoshiAction (int action) {
+  switch (action)
+  {
+  case 0 : 
+    return sprite_yoshi_idle;
+  case 1:
+    return sprite_yoshi_walk;
+  case 2:
+    return sprite_yoshi_attack1;
+  case 3:
+    return sprite_yoshi_attack2;
+  case 4 :
+    return sprite_yoshi_block;
+  }
+}
+
 unsigned char sprite_yoshi_attack1[YOSHI_WIDTH*YOSHI_HEIGHT] = {
  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,

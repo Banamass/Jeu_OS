@@ -29,6 +29,7 @@
 
 #include "Game/Game.h"
 #include "Game/MenuMain.h"
+#include "Game/MenuCharacters.h"
 
 extern char __e_kernel,__b_kernel, __b_data, __e_data,  __b_stack, __e_load ;
 int i;
@@ -120,6 +121,7 @@ extern "C" void Sextant_main(unsigned long magic, unsigned long addr){
 	
     MenuMain mm;
     int choice = mm.run();
+	/*
     switch (choice)
     {
     case 0:
@@ -135,8 +137,13 @@ extern "C" void Sextant_main(unsigned long magic, unsigned long addr){
         ecran.afficherMot(5,10,"ERREUR");
         //break;
     }
+	*/
+	
+	MenuCharacters mc;
+	int choiceP1 = mc.run(1);
+	int choiceP2 = mc.run(2);
 
-	Game game;
+	Game game(choiceP1, choiceP2);
 	game.run();
 
 	// demo_vga();

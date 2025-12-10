@@ -1,0 +1,85 @@
+#include "Game/MenuCharacters.h"
+
+
+// sélection par le joueur 1 puis par le joueur 2
+
+MenuCharacters::MenuCharacters()
+    : vga(640, 480, VBE_MODE::_8), selection(0) {
+    vga.init();
+    vga.clear(0);
+
+    // only usefull in 4 or 8 bits modes
+    vga.set_palette(palette_vga);
+    }
+
+int MenuCharacters::run(int player){
+    act_player=player;
+    update();
+    while(1){
+        if (act_player==1) { // premier joueur
+            bool q_now = clavier.is_pressed_then_deleted(AZERTY::K_Q);
+            bool d_now = clavier.is_pressed_then_deleted(AZERTY::K_D);
+            if (q_now) {
+                selection = (selection -1 + nbCharacters) % nbCharacters;
+            } else if (d_now) {
+                selection = (selection +1) % nbCharacters;
+            }
+        } else { // 2e joueur
+            bool k_now = clavier.is_pressed_then_deleted(AZERTY::K_K);
+            bool m_now = clavier.is_pressed_then_deleted(AZERTY::K_M);
+            if (k_now) {
+                selection = (selection -1 + nbCharacters) % nbCharacters;
+                if (selection == choice_player1) {
+                    selection = (selection -1 + nbCharacters) % nbCharacters;
+                }
+            } else if (m_now) {
+                selection = (selection +1) % nbCharacters;
+                if (selection == choice_player1) {
+                    selection = (selection +1) % nbCharacters;
+                }
+            }
+        }
+        update();
+
+        if(clavier.is_pressed_then_deleted(AZERTY::K_RETURN)){
+            if (act_player == 1) {
+                choice_player1 = selection;
+                selection = (selection +1) % nbCharacters;
+            }
+            return selection;
+        }
+    }
+}
+
+void MenuCharacters::update(){
+    vga.clear(0);
+    ui8_t color;
+    if (act_player == 1) {
+        color = 100;
+        //affice "PLAYER 1 - CHOOSE YOUR CHARACTER"
+    } else {
+        color = 200;
+        //affiche "PLAYER 2 - CHOOSE YOUR CHARACTER"
+    }
+
+
+    if (selection == 0) { // ZELDA
+        vga.plot_square(50, 130, 70, color);
+        vga.plot_sprite(sprite_zelda_attack1, ZELDA_WIDTH, ZELDA_HEIGHT, 50, 200-ZELDA_HEIGHT);
+        vga.plot_sprite(sprite_yoshi_idle, YOSHI_WIDTH, YOSHI_HEIGHT, 150, 200-YOSHI_HEIGHT);
+        vga.plot_sprite(sprite_dk_idle, DK_WIDTH, DK_HEIGHT, 250, 200-DK_HEIGHT);
+    } else if (selection == 1) { // YOSHI
+        vga.plot_square(150, 130, 70, color);
+        vga.plot_sprite(sprite_zelda_idle, ZELDA_WIDTH, ZELDA_HEIGHT, 50, 200-ZELDA_HEIGHT);
+        vga.plot_sprite(sprite_yoshi_attack1, YOSHI_WIDTH, YOSHI_HEIGHT, 150, 200-YOSHI_HEIGHT);
+        vga.plot_sprite(sprite_dk_idle, DK_WIDTH, DK_HEIGHT, 250, 200-DK_HEIGHT);
+    } else if (selection == 2) { // DK
+        vga.plot_square(250, 130, 70, color);
+        vga.plot_sprite(sprite_zelda_idle, ZELDA_WIDTH, ZELDA_HEIGHT, 50, 200-ZELDA_HEIGHT);
+        vga.plot_sprite(sprite_yoshi_idle, YOSHI_WIDTH, YOSHI_HEIGHT, 150, 200-YOSHI_HEIGHT);
+        vga.plot_sprite(sprite_dk_attack1, DK_WIDTH, DK_HEIGHT, 250, 200-DK_HEIGHT);
+    }
+    vga.swapBuffer();
+
+    
+}

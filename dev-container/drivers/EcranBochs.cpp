@@ -232,3 +232,6 @@ ui8_t EcranBochs::bytesPerPixel() {
     if (mode == VBE_MODE::_15) return 2;
     return mode / 8;
 }
+
+
+

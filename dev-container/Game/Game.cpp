@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "MenuMain.h"
 
-Game::Game() : vga(640, 480, VBE_MODE::_8), player1(&vga), player2(&vga){
+Game::Game(int p1, int p2) : vga(640, 480, VBE_MODE::_8), player1(&vga), player2(&vga){
     vga.init();
     vga.clear(0);
 
@@ -16,6 +16,11 @@ Game::Game() : vga(640, 480, VBE_MODE::_8), player1(&vga), player2(&vga){
     kconf.left = AZERTY::K_K;;
     kconf.right = AZERTY::K_M;
     player2.SetKeyConfig(kconf);
+
+    player1.SetCharacter(p1);
+    player1.SetAction(0);
+    player2.SetCharacter(p2);
+    player2.SetAction(0);
 }
 Game::~Game(){
 

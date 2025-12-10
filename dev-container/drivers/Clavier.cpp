@@ -27,6 +27,12 @@ void Clavier::set_leds(void) {
 	ecrireOctet(0x60, 0xED);
 }
 
-bool Clavier::is_pressed(ui8_t sc) {
+bool Clavier::is_pressed(ui8_t sc) { 
 	return key_pressed[sc];
+}
+
+bool Clavier::is_pressed_then_deleted(ui8_t sc) { 
+	bool pressed = key_pressed[sc];
+	key_pressed[sc] = false;
+	return pressed;
 }

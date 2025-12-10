@@ -14,11 +14,19 @@ void Player::Update(double dt){
 }
 
 void Player::Render(){
-    vga->plot_sprite(sprite_yoshi_block, YOSHI_WIDTH, YOSHI_HEIGHT, offset, 100);
+    vga->plot_sprite(liste.GetCharacter(character, action), liste.GetWidth(character), liste.GetHeight(character), offset, 100);
 }
 
 void Player::SetKeyConfig(KeyConfig& l_kconf){
     kconf = l_kconf;
+}
+
+void Player::SetCharacter(int numCharacter) {
+    character = numCharacter;
+}
+
+void Player::SetAction(int numAction) {
+    action = numAction;
 }
 
 int Player::GetPercentage(){

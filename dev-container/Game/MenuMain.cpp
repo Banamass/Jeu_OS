@@ -6,8 +6,8 @@ MenuMain::MenuMain()
 int MenuMain::run(){
     update();
     while(1){
-        bool z_now = clavier.is_pressed(AZERTY::K_Z);
-        bool s_now = clavier.is_pressed(AZERTY::K_S);
+        bool z_now = clavier.is_pressed_then_deleted(AZERTY::K_Z);
+        bool s_now = clavier.is_pressed_then_deleted(AZERTY::K_S);
         if ((z_now && !prev_z)||(s_now && !prev_s)) {
             selection = 1 - selection;
             update();
@@ -15,7 +15,7 @@ int MenuMain::run(){
         prev_z = z_now;
         prev_s = s_now;
 
-        if(clavier.is_pressed(AZERTY::K_RETURN)){
+        if(clavier.is_pressed_then_deleted(AZERTY::K_RETURN)){
             return selection;
         }
     }

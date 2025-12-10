@@ -4,6 +4,8 @@
 #define DK_WIDTH  93
 #define DK_HEIGHT 47
 
+unsigned char* getDKAction(int action);
+
 extern unsigned char sprite_dk_idle[DK_WIDTH*DK_HEIGHT];
 extern unsigned char sprite_dk_walk[DK_WIDTH*DK_HEIGHT];
 extern unsigned char sprite_dk_block[DK_WIDTH*DK_HEIGHT];

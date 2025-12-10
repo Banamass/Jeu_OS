@@ -5,7 +5,7 @@
 
 class Game{
 public:
-    Game();
+    Game(int p1, int p2);
     ~Game();
 
     void run();
