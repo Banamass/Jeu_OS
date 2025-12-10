@@ -28,6 +28,7 @@
 #include <sextant/Sprite/Zelda.h>
 
 #include "Game/Game.h"
+#include "Game/MenuMain.h"
 
 extern char __e_kernel,__b_kernel, __b_data, __e_data,  __b_stack, __e_load ;
 int i;
@@ -116,9 +117,27 @@ extern "C" void Sextant_main(unsigned long magic, unsigned long addr){
 
 	// initialize pci bus to detect GPU address
 	checkBus(0);
+	
+    MenuMain mm;
+    int choice = mm.run();
+    switch (choice)
+    {
+    case 0:
+        ecran.effacerEcran(NOIR);
+        ecran.afficherMot(5,10,"START");
+        //break;
+    case 1:
+        ecran.effacerEcran(NOIR);
+        ecran.afficherMot(5,10,"QUIT");
+        //break;
+    default:
+        ecran.effacerEcran(NOIR);
+        ecran.afficherMot(5,10,"ERREUR");
+        //break;
+    }
 
 	Game game;
-	game.run();
+	//game.run();
 
 	// demo_vga();
 
