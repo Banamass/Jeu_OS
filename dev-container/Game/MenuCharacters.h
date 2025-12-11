@@ -4,9 +4,7 @@
 #include "drivers/EcranBochs.h"
 #include "drivers/Clavier.h"
 
-#include "sextant/Sprite/Zelda.h"
-#include "sextant/Sprite/Yoshi.h"
-#include "sextant/Sprite/DK.h"
+#include "ListCharacters.h"
 #include "sextant/sprite.h"
 
 class MenuCharacters {
@@ -20,7 +18,6 @@ private:
     Ecran ecran;
     EcranBochs vga;
     int selection;
-    int nbCharacters = 3;
     int choice_player1 = -1;
     int act_player;
     

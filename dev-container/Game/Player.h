@@ -33,7 +33,6 @@ private:
     EcranBochs* vga;
     Clavier clavier;
     KeyConfig kconf;
-    ListCharacters liste;
     int character;
     int action;
 

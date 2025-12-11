@@ -7,6 +7,8 @@ Personnages :
     - 0 : Zelda
     - 1 : Yoshi
     - 2 : DK
+    - 3 : Mr Game & Watch (aka Mr)
+    - 4 : Mario
 
 Actions :
     - 0 : Idle
@@ -14,6 +16,7 @@ Actions :
     - 2 : Attack1
     - 3 : Attack2
     - 4 : Block
+    - 5 : Jump
 */
 
 
@@ -26,6 +29,10 @@ unsigned char* ListCharacters::GetCharacter(int num, int action) {
         return getYoshiAction(action);
     case 2:
         return getDKAction(action);
+    case 3:
+        return getMrAction(action);
+    case 4:
+        return getMarioAction(action);
     }
 }
 
@@ -38,6 +45,10 @@ int ListCharacters::GetHeight(int num){
         return YOSHI_HEIGHT;
     case 2:
         return DK_HEIGHT;
+    case 3:
+        return MR_HEIGHT;
+    case 4:
+        return MARIO_HEIGHT;
     }
 }
 
@@ -50,5 +61,9 @@ int ListCharacters::GetWidth(int num){
         return YOSHI_WIDTH;
     case 2:
         return DK_WIDTH;
+    case 3:
+        return MR_WIDTH;
+    case 4:
+        return MARIO_WIDTH;
     }
 }

@@ -1,6 +1,5 @@
 #include "Game/MenuCharacters.h"
 
-
 // sélection par le joueur 1 puis par le joueur 2 dans 2 run différents
 
 MenuCharacters::MenuCharacters()
@@ -43,7 +42,11 @@ int MenuCharacters::run(int player){ // player = 1 ou 2
         if(clavier.is_pressed_then_deleted(AZERTY::K_RETURN)){
             if (act_player == 1) {
                 choice_player1 = selection; // on stocke le choix du premier
-                selection = (selection +1) % nbCharacters; // on initialise le 2e au suivant
+                if (choice_player1 == 0) {
+                    selection = 1;
+                } else {
+                    selection = 0;
+                }
                 return choice_player1;
             }
             return selection;
@@ -62,22 +65,12 @@ void MenuCharacters::update(){
         //affiche "PLAYER 2 - CHOOSE YOUR CHARACTER"
     }
 
-
-    if (selection == 0) { // ZELDA
-        vga.plot_square(50, 130, 70, color);
-        vga.plot_sprite(sprite_zelda_attack1, ZELDA_WIDTH, ZELDA_HEIGHT, 50, 200-ZELDA_HEIGHT);
-        vga.plot_sprite(sprite_yoshi_idle, YOSHI_WIDTH, YOSHI_HEIGHT, 150, 200-YOSHI_HEIGHT);
-        vga.plot_sprite(sprite_dk_idle, DK_WIDTH, DK_HEIGHT, 250, 200-DK_HEIGHT);
-    } else if (selection == 1) { // YOSHI
-        vga.plot_square(150, 130, 70, color);
-        vga.plot_sprite(sprite_zelda_idle, ZELDA_WIDTH, ZELDA_HEIGHT, 50, 200-ZELDA_HEIGHT);
-        vga.plot_sprite(sprite_yoshi_attack1, YOSHI_WIDTH, YOSHI_HEIGHT, 150, 200-YOSHI_HEIGHT);
-        vga.plot_sprite(sprite_dk_idle, DK_WIDTH, DK_HEIGHT, 250, 200-DK_HEIGHT);
-    } else if (selection == 2) { // DK
-        vga.plot_square(250, 130, 70, color);
-        vga.plot_sprite(sprite_zelda_idle, ZELDA_WIDTH, ZELDA_HEIGHT, 50, 200-ZELDA_HEIGHT);
-        vga.plot_sprite(sprite_yoshi_idle, YOSHI_WIDTH, YOSHI_HEIGHT, 150, 200-YOSHI_HEIGHT);
-        vga.plot_sprite(sprite_dk_attack1, DK_WIDTH, DK_HEIGHT, 250, 200-DK_HEIGHT);
+    if (choice_player1!=-1) {
+        vga.plot_square(80+choice_player1*100, 120, 80, 70);
+    }
+    vga.plot_square(80+selection*100, 120, 80, color);
+    for (int s=0; s< nbCharacters; s++) {
+        vga.plot_sprite(ListCharacters::GetCharacter(s, selection == s ? 2 : 0), ListCharacters::GetWidth(s), ListCharacters::GetHeight(s), 80+100*s, 200-ListCharacters::GetHeight(s));
     }
     vga.swapBuffer();
 

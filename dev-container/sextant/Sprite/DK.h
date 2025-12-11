@@ -11,5 +11,6 @@ extern unsigned char sprite_dk_walk[DK_WIDTH*DK_HEIGHT];
 extern unsigned char sprite_dk_block[DK_WIDTH*DK_HEIGHT];
 extern unsigned char sprite_dk_attack1[DK_WIDTH*DK_HEIGHT];
 extern unsigned char sprite_dk_attack2[DK_WIDTH*DK_HEIGHT];
+extern unsigned char sprite_dk_jump[DK_WIDTH*DK_HEIGHT];
 
 #endif

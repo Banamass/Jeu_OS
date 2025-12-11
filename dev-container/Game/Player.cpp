@@ -14,7 +14,7 @@ void Player::Update(double dt){
 }
 
 void Player::Render(){
-    vga->plot_sprite(liste.GetCharacter(character, action), liste.GetWidth(character), liste.GetHeight(character), offset, 100);
+    vga->plot_sprite(ListCharacters::GetCharacter(character, action), ListCharacters::GetWidth(character), ListCharacters::GetHeight(character), offset, 100);
 }
 
 void Player::SetKeyConfig(KeyConfig& l_kconf){
