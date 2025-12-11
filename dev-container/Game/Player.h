@@ -4,6 +4,7 @@
 #include "drivers/EcranBochs.h"
 #include "sextant/sprite.h"
 #include "drivers/Clavier.h"
+#include "Game/utils.h"
 
 struct KeyConfig{
     ui8_t left;
@@ -19,10 +20,12 @@ public:
     Player(EcranBochs* l_vga);
     ~Player();
 
-    void Update(double dt);
+    void Update(FixFloat dt);
     void Render();
 
     void SetKeyConfig(KeyConfig& kconf);
+
+    bool GetCollisions();
 
     int GetPercentage();
 
@@ -31,8 +34,13 @@ private:
     Clavier clavier;
     KeyConfig kconf;
 
-    int offset;
+    vec2f p;
+    vec2f v;
+    vec2f a;
 
+    int velocity;
+
+    FixFloat gravity;
 };
 
 #endif

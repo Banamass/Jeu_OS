@@ -10,7 +10,7 @@ public:
 
     void run();
 
-    void Update(double dt);
+    void Update(FixFloat dt);
     void Render();
 
 private:

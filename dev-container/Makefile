@@ -36,7 +36,7 @@ MV = mv -f
 KERNEL_OBJ   = sextant.elf
 
 OBJECTSNAMES= main multiboot fonctionsES irq_wrappers i8259 idt irq Ecran Clavier PortSerie timer random Horloge handler_tic handler_clavier memoire cpu_context_switch cpu_context  \
-thread sched TestAndSet Mutex Spinlock Semaphore Hello Prod Cons Threads InfiniteHello pci vga EcranBochs sprite Game Player
+thread sched TestAndSet Mutex Spinlock Semaphore Hello Prod Cons Threads InfiniteHello pci vga EcranBochs sprite Game Player utils
 
 
 OBJECTS=$(patsubst %,build/all-o/%.o,$(OBJECTSNAMES))					  		
@@ -82,7 +82,7 @@ run: $(KERNEL_OBJ)
 	$(QEMU) -display curses -net nic,model=ne2k_isa -net user,tftp=./build/boot -cdrom ./build/boot/grub.iso
 
 run_gui: $(KERNEL_OBJ)
-	$(QEMU) -net nic,model=ne2k_isa -net user,tftp=./build/boot -cdrom ./build/boot/grub.iso
+	$(QEMU) -net nic,model=ne2k_isa -net user,tftp=./build/boot -serial file:build/boot/sortiesserieqemu.txt -cdrom ./build/boot/grub.iso
 
 debug: $(KERNEL_OBJ)
 	$(QEMU) -display curses -S -s  -net nic,model=ne2k_isa -net user,tftp=./build/boot -cdrom ./build/boot/grub.iso

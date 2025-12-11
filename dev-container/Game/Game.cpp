@@ -22,14 +22,14 @@ Game::~Game(){
 
 void Game::run(){
     while(1){
-        Update(0.1f);
+        Update(FixFloat(100));
         Render();
     }
 }
 
-void Game::Update(double dt){
-    player2.Update(dt);
+void Game::Update(FixFloat dt){
     player1.Update(dt);
+    player2.Update(dt);
 }
 void Game::Render(){
     vga.clear(1);
