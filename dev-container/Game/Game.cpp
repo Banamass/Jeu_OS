@@ -27,7 +27,6 @@ Game::~Game(){
 }
 
 void Game::run(){
-
     while(1){
         Update(0.1f);
         Render();
@@ -39,7 +38,8 @@ void Game::Update(double dt){
     player1.Update(dt);
 }
 void Game::Render(){
-    vga.clear(1);
+    vga.clear(140);
+    vga.plot_sprite(sprite_scene, SCENE_WIDTH, SCENE_HEIGHT, (640-SCENE_WIDTH)/2, (480-SCENE_HEIGHT)/2);
     player1.Render();
     player2.Render();
     vga.swapBuffer(); // call this after you finish drawing your frame to display it, it avoids screen tearing

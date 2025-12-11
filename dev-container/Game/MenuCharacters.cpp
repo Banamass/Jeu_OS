@@ -1,18 +1,17 @@
 #include "Game/MenuCharacters.h"
 
 
-// sélection par le joueur 1 puis par le joueur 2
+// sélection par le joueur 1 puis par le joueur 2 dans 2 run différents
 
 MenuCharacters::MenuCharacters()
     : vga(640, 480, VBE_MODE::_8), selection(0) {
     vga.init();
     vga.clear(0);
 
-    // only usefull in 4 or 8 bits modes
     vga.set_palette(palette_vga);
     }
 
-int MenuCharacters::run(int player){
+int MenuCharacters::run(int player){ // player = 1 ou 2
     act_player=player;
     update();
     while(1){
@@ -29,12 +28,12 @@ int MenuCharacters::run(int player){
             bool m_now = clavier.is_pressed_then_deleted(AZERTY::K_M);
             if (k_now) {
                 selection = (selection -1 + nbCharacters) % nbCharacters;
-                if (selection == choice_player1) {
+                if (selection == choice_player1) { // ne peut pas choisir celui du premier
                     selection = (selection -1 + nbCharacters) % nbCharacters;
                 }
             } else if (m_now) {
                 selection = (selection +1) % nbCharacters;
-                if (selection == choice_player1) {
+                if (selection == choice_player1) { // ne peut pas choisir celui du premier
                     selection = (selection +1) % nbCharacters;
                 }
             }
@@ -43,8 +42,9 @@ int MenuCharacters::run(int player){
 
         if(clavier.is_pressed_then_deleted(AZERTY::K_RETURN)){
             if (act_player == 1) {
-                choice_player1 = selection;
-                selection = (selection +1) % nbCharacters;
+                choice_player1 = selection; // on stocke le choix du premier
+                selection = (selection +1) % nbCharacters; // on initialise le 2e au suivant
+                return choice_player1;
             }
             return selection;
         }
@@ -55,10 +55,10 @@ void MenuCharacters::update(){
     vga.clear(0);
     ui8_t color;
     if (act_player == 1) {
-        color = 100;
-        //affice "PLAYER 1 - CHOOSE YOUR CHARACTER"
+        color = 70;
+        //affiche "PLAYER 1 - CHOOSE YOUR CHARACTER"
     } else {
-        color = 200;
+        color = 150;
         //affiche "PLAYER 2 - CHOOSE YOUR CHARACTER"
     }
 

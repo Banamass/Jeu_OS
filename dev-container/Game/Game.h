@@ -2,6 +2,7 @@
 #define _GAME_H_
 
 #include "Game/Player.h"
+#include "sextant/Sprite/scene.h"
 
 class Game{
 public:

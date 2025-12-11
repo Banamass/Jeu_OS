@@ -142,7 +142,7 @@ extern "C" void Sextant_main(unsigned long magic, unsigned long addr){
 	MenuCharacters mc;
 	int choiceP1 = mc.run(1);
 	int choiceP2 = mc.run(2);
-
+	
 	Game game(choiceP1, choiceP2);
 	game.run();
 
