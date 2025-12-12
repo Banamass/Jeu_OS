@@ -56,6 +56,7 @@ public:
 	void set_leds(void);
 
 	bool is_pressed(ui8_t s);
+	bool is_pressed_then_deleted(ui8_t s);
 };
 
 #endif

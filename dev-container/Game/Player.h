@@ -3,6 +3,7 @@
 
 #include "drivers/EcranBochs.h"
 #include "sextant/sprite.h"
+#include "ListCharacters.h"
 #include "drivers/Clavier.h"
 
 struct KeyConfig{
@@ -23,6 +24,8 @@ public:
     void Render();
 
     void SetKeyConfig(KeyConfig& kconf);
+    void SetCharacter(int numCharacter);
+    void SetAction(int numAction) ;
 
     int GetPercentage();
 
@@ -30,6 +33,8 @@ private:
     EcranBochs* vga;
     Clavier clavier;
     KeyConfig kconf;
+    int character;
+    int action;
 
     int offset;
 

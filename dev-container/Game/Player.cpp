@@ -14,11 +14,19 @@ void Player::Update(double dt){
 }
 
 void Player::Render(){
-    vga->plot_sprite(sprite_data, SPRITE_WIDTH, SPRITE_HEIGHT, offset, 100);
+    vga->plot_sprite(ListCharacters::GetCharacter(character, action), ListCharacters::GetWidth(character), ListCharacters::GetHeight(character), offset, 100);
 }
 
 void Player::SetKeyConfig(KeyConfig& l_kconf){
     kconf = l_kconf;
+}
+
+void Player::SetCharacter(int numCharacter) {
+    character = numCharacter;
+}
+
+void Player::SetAction(int numAction) {
+    action = numAction;
 }
 
 int Player::GetPercentage(){
