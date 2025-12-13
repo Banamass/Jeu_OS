@@ -1,7 +1,7 @@
 #include "Game/utils.h"
 
 /*-------FixFloat-------*/
-FixFloat::FixFloat() : val(0){
+/*FixFloat::FixFloat() : val(0){
 }
 FixFloat::FixFloat(int vint) : val(vint){
 }
@@ -90,8 +90,42 @@ FixFloat& FixFloat::operator=(const int& vint){
 bool operator<(const FixFloat& f1, const FixFloat& f2){
     return f1.val < f2.val;
 }
-
+*/
 /*-------vec2f-------*/
 
-vec2f::vec2f(int l_x, int l_y)
-    : x(l_x), y(l_y){}
+
+
+/*-------IntRect-------*/
+
+bool IntRect::Contains(vec2 v){
+    return (v.x >= pos.x && v.x < pos.x + size.x
+	    && v.y >= pos.y && v.y < pos.y + size.y);
+}
+bool IntRect::Intersect(IntRect r){
+    return !(pos.x >= r.pos.x + r.size.x
+        || r.pos.x >= pos.x + size.x
+        || pos.y >= r.pos.y + r.size.y
+        || r.pos.y >= pos.y + size.y);
+}
+
+void IntDepletion(int& i, int depl){
+    if(i > 0)
+        i = i > depl ? i - depl : 0;
+    else
+        i = i < -depl ? i + depl : 0;
+}
+void Vec2Depletion(vec2& v, vec2 depl){
+    IntDepletion(v.x, depl.x);
+    IntDepletion(v.y, depl.y);
+}
+
+void CapInt(int& i, int cap){
+     if(i > 0)
+        i = i > cap ? cap : i;
+    else
+        i = i < -cap ? -cap : i;
+}
+void CapVec2(vec2& v, vec2 cap){
+    CapInt(v.x, cap.x);
+    CapInt(v.y, cap.y);
+}

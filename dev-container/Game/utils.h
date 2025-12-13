@@ -4,7 +4,7 @@
 #include "drivers/PortSerie.h"
 #include "sextant/types.h"
 
-class FixFloat{
+/*class FixFloat{
 public:
     FixFloat();
     FixFloat(int vint);
@@ -32,13 +32,48 @@ public:
 
 private:
     int val;
+};*/
+
+struct vec2{
+    vec2() : x(0), y(0) {}
+    vec2(int l_x, int l_y) : x(l_x), y(l_y){}
+
+    /*bool operator==(const vec2& v )const{
+        return x == v.x && y == v.y;
+    }
+    bool operator!=(const vec2& v )const{
+        x != v.x || y != v.y;
+    }*/
+
+    int x;
+    int y;
 };
 
-struct vec2f{
-    vec2f(int l_x, int l_y);
+struct Test{
+    Test() : pos(), size(){}
+    Test(vec2 p, vec2 s) : pos(p), size(s){}
 
-    FixFloat x;
-    FixFloat y;
+    vec2 pos;
+    vec2 size;
 };
+
+struct IntRect{
+    IntRect(): pos(), size(){}
+    IntRect(vec2 p, vec2 s) : pos(p), size(s){}
+
+    //Return if this int rect contain the vector
+    bool Contains(vec2 v);
+    //Return if the other int rect intersects with this one 
+    bool Intersect(IntRect r);
+
+    vec2 pos;
+    vec2 size;
+};
+
+void IntDepletion(int& i, int depl);
+void Vec2Depletion(vec2& v, vec2 depl);
+
+void CapInt(int& i, int cap);
+void CapVec2(vec2& v, vec2 cap);
 
 #endif

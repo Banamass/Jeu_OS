@@ -5,6 +5,7 @@
 #include "sextant/sprite.h"
 #include "drivers/Clavier.h"
 #include "Game/utils.h"
+#include "Game/Map.h"
 
 struct KeyConfig{
     ui8_t left;
@@ -20,12 +21,12 @@ public:
     Player(EcranBochs* l_vga);
     ~Player();
 
-    void Update(FixFloat dt);
+    void Update(Map* map);
     void Render();
 
     void SetKeyConfig(KeyConfig& kconf);
 
-    bool GetCollisions();
+    IntRect GetIntRect();
 
     int GetPercentage();
 
@@ -34,13 +35,13 @@ private:
     Clavier clavier;
     KeyConfig kconf;
 
-    vec2f p;
-    vec2f v;
-    vec2f a;
+    /*vec2 p;
+    vec2 v;
+    vec2 a;*/
 
     int velocity;
 
-    FixFloat gravity;
+    int gravity;
 };
 
 #endif

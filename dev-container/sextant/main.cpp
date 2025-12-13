@@ -116,6 +116,8 @@ extern "C" void Sextant_main(unsigned long magic, unsigned long addr){
 	// initialize pci bus to detect GPU address
 	checkBus(0);
 
+	PortSerie port;
+    port.ecrireMot("eafafagae");
 	Game game;
 	game.run();
 

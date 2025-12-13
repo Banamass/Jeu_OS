@@ -1,41 +1,52 @@
 #include "Player.h"
 
-Player::Player(EcranBochs* l_vga) : vga(l_vga), a(0,0), v(0,0), p(0,0)
-    , velocity(500), gravity(0)
+Player::Player(EcranBochs* l_vga) : vga(l_vga)
+    , velocity(20), gravity(10)
 {
-    p.y += 50;
+    
 }
 Player::~Player(){}
 
-void Player::Update(FixFloat dt){
-    /*vec2f nv(0,0);
+void Player::Update(Map* map){
+    /*int dt = 1;
+
     if(clavier.is_pressed(kconf.right))
-        nv.x.SetValue(velocity);
+        v.x += velocity * dt;
     if(clavier.is_pressed(kconf.left))
-        nv.x.SetValue(-velocity);
-    v = nv;*/
+        v.x += -velocity * dt;
+    
+    //a.y += gravity;
 
-    vec2f na(0,0);
-    //na.y += gravity;
-    a = na;
+    v.x += a.x * dt;
+    v.y += a.y * dt;
 
-    FixFloat ax = dt * a.x;
-    FixFloat ay = dt * a.y;
-    v.x += ax;
-    v.y += ay;
+    vec2 maxVelocity(200, 1000);
+    CapVec2(v, maxVelocity);
 
-    FixFloat vx = dt * v.x;
-    FixFloat vy = dt * v.y;
-    p.x += vx;
-    p.y += vy;
+    vec2 lastPos(p.x, p.y);
+
+    p.x += v.x * dt;
+    p.y += v.y * dt;
+
+    IntRect collision = GetIntRect();
+    //IntRect c = map->GetCollision(collision);
+    
+        //p.x = lastPos.x;
+        //p.y = lastPos.y;
+    
+
+    a.x = 0;
+    a.y = 0;
+    vec2 depletion(5 * dt,5 * dt);
+    Vec2Depletion(v, depletion);*/
 }
 
 void Player::Render(){
-    vga->plot_sprite(sprite_data, SPRITE_WIDTH, SPRITE_HEIGHT, p.x.GetRealValue(), p.y.GetRealValue());
+    vga->plot_sprite(sprite_data, SPRITE_WIDTH, SPRITE_HEIGHT, 0 / 1000, 0 / 1000);
 }
 
-bool GetCollisions(){
-    return false;
+IntRect Player::GetIntRect(){
+    return IntRect(vec2(5,5), vec2(5,5));
 }
 
 void Player::SetKeyConfig(KeyConfig& l_kconf){

@@ -10,10 +10,11 @@ public:
 
     void run();
 
-    void Update(FixFloat dt);
+    void Update();
     void Render();
 
 private:
+    Map map;
     Player player1;
     Player player2;
     EcranBochs vga;

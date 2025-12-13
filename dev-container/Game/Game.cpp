@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() : vga(640, 480, VBE_MODE::_8), player1(&vga), player2(&vga){
+Game::Game() : vga(640, 480, VBE_MODE::_8), player1(&vga), player2(&vga), map(){
     vga.init();
     vga.clear(0);
 
@@ -22,17 +22,20 @@ Game::~Game(){
 
 void Game::run(){
     while(1){
-        Update(FixFloat(100));
+        Update();
         Render();
     }
 }
 
-void Game::Update(FixFloat dt){
-    player1.Update(dt);
-    player2.Update(dt);
+void Game::Update(){
+    //IntRect test;
+    //test.Intersect(test);
+    player1.Update(&map);
+    player2.Update(&map);
 }
 void Game::Render(){
     vga.clear(1);
+    map.Render();
     player1.Render();
     player2.Render();
     vga.swapBuffer(); // call this after you finish drawing your frame to display it, it avoids screen tearing
