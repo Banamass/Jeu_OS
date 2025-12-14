@@ -5,6 +5,9 @@
 #include "sextant/Sprite/scene.h"
 #include <sextant/ordonnancements/preemptif/thread.h>
 #include <sextant/Synchronisation/Spinlock/Spinlock.h>
+#include "Game/HUD.h"
+
+//class HUD;
 
 class Game{
 public:
@@ -30,6 +33,7 @@ private:
     Spinlock spin;
     int gameLock = 0;
 
+    HUD hud;
 };
 
 #endif

@@ -35,6 +35,7 @@ private:
     KeyConfig kconf;
     int character;
     int action;
+    int percentage;
 
     int offset;
 

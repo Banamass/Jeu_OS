@@ -2,6 +2,7 @@
 #include "MenuMain.h"
 #include <sextant/ordonnancements/preemptif/thread.h>
 #include <sextant/Synchronisation/Spinlock/Spinlock.h>
+#include "HUD.h"
 
 struct PlayerThreadArgs {
     Game* game;
@@ -51,7 +52,6 @@ void Game::run(){
     create_kernel_thread(ThreadRender, this);
 
     while(1){
-        //Render();
         spin.Take(&gameLock);
         UpdateLogic();
         spin.Release(&gameLock);
@@ -60,11 +60,12 @@ void Game::run(){
 
 void Game::Render(){
     vga.clear(140);
+
     vga.plot_sprite(sprite_scene, SCENE_WIDTH, SCENE_HEIGHT, (640-SCENE_WIDTH)/2, (480-SCENE_HEIGHT)/2);
     player1.Render();
     player2.Render();
 
-    //hud.Render(&vga, player1, player2);
+    hud.Render(&vga, player1, player2);
 
     vga.swapBuffer(); // call this after you finish drawing your frame to display it, it avoids screen tearing
 }
