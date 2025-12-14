@@ -25,7 +25,9 @@ LD_WindowsNT=ld
 #-------------------
 ## Partie commune a toutes les configurations
 
-CPPFLAGS  = -gdwarf-2 -g3 -Wall -fno-builtin -fno-rtti -fno-exceptions -nostdinc $($(COMPILATEUR_OPTION))
+CPPFLAGS  = -gdwarf-2 -g3 -Wall -fno-builtin -fno-rtti -fno-exceptions \
+            -fno-unwind-tables -fno-asynchronous-unwind-tables \
+            -nostdinc $($(COMPILATEUR_OPTION))
 LDFLAGS = --warn-common -nostdlib $($(LIEUR_OPTION))
 
 PWD :=.
@@ -36,8 +38,8 @@ MV = mv -f
 KERNEL_OBJ   = sextant.elf
 
 OBJECTSNAMES= main multiboot fonctionsES irq_wrappers i8259 idt irq Ecran Clavier PortSerie timer random Horloge handler_tic handler_clavier memoire cpu_context_switch cpu_context  \
-thread sched TestAndSet Mutex Spinlock Semaphore Hello Prod Cons Threads InfiniteHello pci vga EcranBochs Zelda Yoshi DK Mr Mario sprite Game Player MenuMain MenuCharacters ListCharacters scene
-
+thread sched TestAndSet Mutex Spinlock Semaphore Hello Prod Cons Threads InfiniteHello pci vga EcranBochs Zelda Yoshi DK Mr Mario sprite Game Player MenuMain MenuCharacters ListCharacters scene  \
+HUD
 
 
 OBJECTS=$(patsubst %,build/all-o/%.o,$(OBJECTSNAMES))					  		

@@ -1,16 +1,16 @@
 #include "Player.h"
 
-Player::Player(EcranBochs* l_vga) : vga(l_vga), offset(0)
+Player::Player(EcranBochs* l_vga) : vga(l_vga), offset(0), percentage(0)
 {}
 Player::~Player(){}
 
 void Player::Update(double dt){
-    if(clavier.is_pressed(kconf.right))
+    if(clavier.is_pressed(kconf.right)){
         offset = (offset+1) % (640);
-    if(clavier.is_pressed(kconf.left))
-        offset = (offset-1) % (640);
-    else
-        return;
+    }
+    if(clavier.is_pressed(kconf.left)){
+        offset = (offset - 1 + 640) % 640;
+    }
 }
 
 void Player::Render(){
@@ -30,5 +30,5 @@ void Player::SetAction(int numAction) {
 }
 
 int Player::GetPercentage(){
-    return 1;
+    return percentage;
 }

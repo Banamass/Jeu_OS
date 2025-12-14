@@ -30,6 +30,7 @@
 #include "Game/Game.h"
 #include "Game/MenuMain.h"
 #include "Game/MenuCharacters.h"
+//#include "Game/HUD.h"
 
 extern char __e_kernel,__b_kernel, __b_data, __e_data,  __b_stack, __e_load ;
 int i;
@@ -143,6 +144,7 @@ extern "C" void Sextant_main(unsigned long magic, unsigned long addr){
 	int choiceP1 = mc.run(1);
 	int choiceP2 = mc.run(2);
 	
+
 	Game game(choiceP1, choiceP2);
 	game.run();
 
