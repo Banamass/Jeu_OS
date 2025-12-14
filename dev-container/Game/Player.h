@@ -21,7 +21,7 @@ struct KeyConfig{
 class Player{
 public:
     Player(EcranBochs* l_vga) 
-        : vga(l_vga), p(), v(), a(), nbJumpLeft(0){}
+        : vga(l_vga), p(), v(), a(), nbJumpLeft(0), isAttacking(false){}
     ~Player(){}
 
     void Update();
@@ -34,6 +34,9 @@ public:
     IntRect GetIntRect();
 
     int GetPercentage();
+    void TakePercentage(int l_percentage);
+    bool GetIsAttacking();
+    bool SetIsAttacking();
 
 private:
     EcranBochs* vga;
@@ -48,6 +51,8 @@ private:
     vec2 a;
 
     int nbJumpLeft;
+    
+    bool isAttacking;
 };
 
 #endif

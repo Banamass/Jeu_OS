@@ -89,3 +89,14 @@ IntRect Player::GetIntRect(){
 int Player::GetPercentage(){
     return percentage;
 }
+
+void Player::TakePercentage(int l_percentage){
+    percentage += l_percentage % 100;
+}
+
+bool Player::GetIsAttacking(){
+    return isAttacking;
+}
+bool Player::SetIsAttacking(){
+
+}

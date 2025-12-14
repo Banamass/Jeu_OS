@@ -80,11 +80,9 @@ void Game::ThreadPlayer(void* arg) {
     Player* player = args->player;
     Game* game = args->game;
 
-    double dt = 0.1f;
-
     while (1) {
         game->spin.Take(&game->gameLock);
-        player->Update(dt);
+        player->Update();
         game->spin.Release(&game->gameLock);
         thread_yield();
     }
@@ -97,10 +95,12 @@ void Game::ThreadRender(void* arg) {
         game->spin.Take(&game->gameLock);
         game->Render();
         game->spin.Release(&game->gameLock);
+        thread_yield();
     }
 }
 
 
 
 void Game::UpdateLogic() {
+    
 }
