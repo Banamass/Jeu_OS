@@ -3,6 +3,15 @@
 
 #include "sextant/types.h"
 
+enum SPRITE_ACTION{
+    IDLE = 0,
+    WALK = 1,
+    ATTACK1 = 2,
+    ATTACK2 = 3,
+    BLOCK = 4,
+    JUMP = 5
+};
+
 struct vec2{
     vec2() {}
     vec2(int l_x, int l_y) : x(l_x), y(l_y){}
@@ -22,21 +31,11 @@ struct IntRect{
     IntRect(): pos(), size(){}
     IntRect(vec2 p, vec2 s) : pos(p), size(s){}
 
-    bool Contains(vec2 v){
-        return (v.x >= pos.x && v.x < pos.x + size.x
-            && v.y >= pos.y && v.y < pos.y + size.y);
-    }
-    bool Intersect(void* rp){
-        IntRect* r = (IntRect*) rp;
-        return !(pos.x >= r->pos.x + r->size.x
-            || r->pos.x >= pos.x + size.x
-            || pos.y >= r->pos.y + r->size.y
-            || r->pos.y >= pos.y + size.y);
-    }
-
     vec2 pos;
     vec2 size;
 };
+
+bool Intersect(IntRect& r1, IntRect& r2);
 
 void IntDepletion(int& i, int depl);
 void Vec2Depletion(vec2& v, vec2 depl);
