@@ -41,6 +41,7 @@ private:
     KeyConfig kconf;
     int character;
     int action;
+    int percentage;
 
     vec2 p;
     vec2 v;

@@ -87,5 +87,5 @@ IntRect Player::GetIntRect(){
 }
 
 int Player::GetPercentage(){
-    return 1;
+    return percentage;
 }
