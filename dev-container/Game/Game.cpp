@@ -65,7 +65,7 @@ void Game::run(){
 void Game::Render(){
     vga.clear(140);
 
-    vga.plot_sprite(sprite_scene, SCENE_WIDTH, SCENE_HEIGHT, (640-SCENE_WIDTH)/2, (480-SCENE_HEIGHT)/2);
+    vga.plot_sprite(sprite_scene, SCENE_WIDTH, SCENE_HEIGHT, (640-SCENE_WIDTH)/2, (480-SCENE_HEIGHT)/2, false);
     player1.Render();
     player2.Render();
 

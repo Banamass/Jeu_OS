@@ -28,6 +28,12 @@ void Player::Update(){
 
     p.x += v.x * dt;
     p.y += v.y * dt;
+
+    if (v.x>0) {
+        SetOrientation(false);
+    } else if (v.x<0) {
+        SetOrientation(true);
+    }
     
     int bbw = 10;
     int bbh = 2;
@@ -67,7 +73,7 @@ void Player::Update(){
 
 void Player::Render(){
     vga->plot_sprite(ListCharacters::GetCharacter(character, action), ListCharacters::GetWidth(character), ListCharacters::GetHeight(character)
-        , p.x / 1000, p.y / 1000);
+        , p.x / 1000, p.y / 1000, orientation);
 }
 
 void Player::SetKeyConfig(KeyConfig& l_kconf){
@@ -80,6 +86,10 @@ void Player::SetCharacter(int numCharacter) {
 
 void Player::SetAction(int numAction) {
     action = numAction;
+}
+
+void Player::SetOrientation(bool flip) {
+    orientation = flip;
 }
 
 IntRect Player::GetIntRect(){

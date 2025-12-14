@@ -147,15 +147,17 @@ void EcranBochs::plot_palette(int x, int y, int size) {
 }
 
 
-void EcranBochs::plot_sprite(void* buffer, ui16_t width, ui16_t height, ui16_t x, ui16_t y) {
+void EcranBochs::plot_sprite(void* buffer, ui16_t width, ui16_t height, ui16_t x, ui16_t y, bool flip) {
     switch (mode)
     {
     case _8: {
         ui8_t * buf = (ui8_t*)buffer;
         for (ui16_t row = 0; row < height; row++) {
             ui32_t base = (y + row) * getWidth() + x;
+            ui8_t* line = buf + row * width;
             for (ui16_t col = 0; col < width; col++) {
-                ui8_t color = *buf++;
+                ui16_t sx = flip ? (width - 1 - col) : col;
+                ui8_t color = line[sx];
                 if (color != 0) {
                     framebuffer[base + col] = color;
                 }
@@ -169,8 +171,10 @@ void EcranBochs::plot_sprite(void* buffer, ui16_t width, ui16_t height, ui16_t x
         ui16_t * buf = (ui16_t*)buffer;
         for (ui16_t row = 0; row < height; row++) {
             ui32_t base = (y + row) * getWidth() + x;
+            ui16_t* line = buf + row * width;
             for (ui16_t col = 0; col < width; col++) {
-                ui16_t color = *buf++;
+                ui16_t sx = flip ? (width - 1 - col) : col;
+                ui16_t color = line[sx];
                 if (color != 0) {
                     ((ui16_t*)framebuffer)[base + col] = color;
                 }

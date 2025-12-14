@@ -64,7 +64,7 @@ void demo_bochs_8() {
 	int offset = 0;
 	while (true) {
 		vga.clear(1);
-		vga.plot_sprite(sprite_yoshi_attack2, YOSHI_WIDTH, YOSHI_HEIGHT, offset, 200);
+		vga.plot_sprite(sprite_yoshi_attack2, YOSHI_WIDTH, YOSHI_HEIGHT, offset, 200, false);
 		offset = (offset+1) % (640);
 		vga.swapBuffer(); // call this after you finish drawing your frame to display it, it avoids screen tearing
 	}
