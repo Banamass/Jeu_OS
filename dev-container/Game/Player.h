@@ -5,6 +5,9 @@
 #include "sextant/sprite.h"
 #include "ListCharacters.h"
 #include "drivers/Clavier.h"
+#include "Game/utils.h"
+#include "Game/Map.h"
+#include "drivers/PortSerie.h"
 
 struct KeyConfig{
     ui8_t left;
@@ -17,15 +20,18 @@ struct KeyConfig{
 
 class Player{
 public:
-    Player(EcranBochs* l_vga);
-    ~Player();
+    Player(EcranBochs* l_vga) 
+        : vga(l_vga), p(), v(), a(), nbJumpLeft(0){}
+    ~Player(){}
 
-    void Update(double dt);
+    void Update();
     void Render();
 
     void SetKeyConfig(KeyConfig& kconf);
     void SetCharacter(int numCharacter);
     void SetAction(int numAction) ;
+
+    IntRect GetIntRect();
 
     int GetPercentage();
 
@@ -37,8 +43,11 @@ private:
     int action;
     int percentage;
 
-    int offset;
+    vec2 p;
+    vec2 v;
+    vec2 a;
 
+    int nbJumpLeft;
 };
 
 #endif
