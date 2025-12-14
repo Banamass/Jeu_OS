@@ -2,6 +2,7 @@
 #define _GAME_H_
 
 #include "Game/Player.h"
+#include "Game/Map.h"
 #include "sextant/Sprite/scene.h"
 
 class Game{
@@ -11,7 +12,7 @@ public:
 
     void run();
 
-    void Update(double dt);
+    void Update();
     void Render();
 
 private:

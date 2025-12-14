@@ -11,16 +11,20 @@ Game::Game(int p1, int p2) : vga(640, 480, VBE_MODE::_8), player1(&vga), player2
     KeyConfig kconf;
     kconf.left = AZERTY::K_Q;
     kconf.right = AZERTY::K_D;
+    kconf.jump = AZERTY::K_S;
     player1.SetKeyConfig(kconf);
 
     kconf.left = AZERTY::K_K;;
     kconf.right = AZERTY::K_M;
+    kconf.jump = AZERTY::K_L;
     player2.SetKeyConfig(kconf);
 
     player1.SetCharacter(p1);
     player1.SetAction(0);
     player2.SetCharacter(p2);
     player2.SetAction(0);
+
+    IntRect object(vec2(200, 0), vec2(50, 500));
 }
 Game::~Game(){
 
@@ -28,14 +32,14 @@ Game::~Game(){
 
 void Game::run(){
     while(1){
-        Update(0.1f);
+        Update();
         Render();
     }
 }
 
-void Game::Update(double dt){
-    player2.Update(dt);
-    player1.Update(dt);
+void Game::Update(){
+    player2.Update();
+    player1.Update();
 }
 void Game::Render(){
     vga.clear(140);
