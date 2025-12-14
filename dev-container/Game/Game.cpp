@@ -21,11 +21,17 @@ Game::Game(int p1, int p2) : vga(640, 480, VBE_MODE::_8), player1(&vga), player2
     kconf.left = AZERTY::K_Q;
     kconf.right = AZERTY::K_D;
     kconf.jump = AZERTY::K_S;
+    kconf.attack = AZERTY::K_Z;
+    kconf.special = AZERTY::K_A;
+    kconf.block = AZERTY::K_E;
     player1.SetKeyConfig(kconf);
 
     kconf.left = AZERTY::K_K;;
     kconf.right = AZERTY::K_M;
     kconf.jump = AZERTY::K_L;
+    kconf.attack = AZERTY::K_O;
+    kconf.special = AZERTY::K_I;
+    kconf.block = AZERTY::K_P;
     player2.SetKeyConfig(kconf);
 
     player1.SetCharacter(p1);
@@ -102,5 +108,28 @@ void Game::ThreadRender(void* arg) {
 
 
 void Game::UpdateLogic() {
-    
+    if(player1.GetIsAttacking()){
+        IntRect rectAtck;
+        player1.GetAttackRectPX(rectAtck);
+        player1.GetAttackRectPY(rectAtck);
+        player1.GetAttackRectSX(rectAtck);
+        player1.GetAttackRectSY(rectAtck);
+        IntRect rectBlock;
+        player2.GetAttackRectPX(rectBlock);
+        player2.GetAttackRectPY(rectBlock);
+        player2.GetAttackRectSX(rectBlock);
+        player2.GetAttackRectSY(rectBlock);
+        if(Intersect(rectAtck, rectBlock)){
+            player1.SetIsAttacking(false);
+            player2.Blink();
+            player2.TakePercentage(10);
+        }
+    }
+    if(player2.GetIsAttacking()){
+        //IntRect rectAtck = player2.GetAttackRect();
+        //IntRect rectBlock = player1.GetIntRect();
+        player2.SetIsAttacking(false);
+        player1.Blink();
+        player1.TakePercentage(10);
+    }
 }
