@@ -20,16 +20,20 @@ Game::Game(int p1, int p2) : vga(640, 480, VBE_MODE::_8), player1(&vga), player2
     KeyConfig kconf;
     kconf.left = AZERTY::K_Q;
     kconf.right = AZERTY::K_D;
+    kconf.jump = AZERTY::K_S;
     player1.SetKeyConfig(kconf);
 
     kconf.left = AZERTY::K_K;;
     kconf.right = AZERTY::K_M;
+    kconf.jump = AZERTY::K_L;
     player2.SetKeyConfig(kconf);
 
     player1.SetCharacter(p1);
     player1.SetAction(0);
     player2.SetCharacter(p2);
     player2.SetAction(0);
+
+    IntRect object(vec2(200, 0), vec2(50, 500));
 }
 Game::~Game(){
 
@@ -76,11 +80,9 @@ void Game::ThreadPlayer(void* arg) {
     Player* player = args->player;
     Game* game = args->game;
 
-    double dt = 0.1f;
-
     while (1) {
         game->spin.Take(&game->gameLock);
-        player->Update(dt);
+        player->Update();
         game->spin.Release(&game->gameLock);
         thread_yield();
     }
@@ -93,10 +95,12 @@ void Game::ThreadRender(void* arg) {
         game->spin.Take(&game->gameLock);
         game->Render();
         game->spin.Release(&game->gameLock);
+        thread_yield();
     }
 }
 
 
 
 void Game::UpdateLogic() {
+    
 }

@@ -2,6 +2,7 @@
 #define _GAME_H_
 
 #include "Game/Player.h"
+#include "Game/Map.h"
 #include "sextant/Sprite/scene.h"
 #include <sextant/ordonnancements/preemptif/thread.h>
 #include <sextant/Synchronisation/Spinlock/Spinlock.h>
@@ -16,7 +17,7 @@ public:
 
     void run();
 
-    void Update(double dt);
+    void Update();
     void Render();
 
 private:
