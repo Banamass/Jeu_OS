@@ -70,7 +70,7 @@ void MenuCharacters::update(){
     }
     vga.plot_square(80+selection*100, 120, 80, color);
     for (int s=0; s< nbCharacters; s++) {
-        vga.plot_sprite(ListCharacters::GetCharacter(s, selection == s ? 2 : 0), ListCharacters::GetWidth(s), ListCharacters::GetHeight(s), 80+100*s, 200-ListCharacters::GetHeight(s));
+        vga.plot_sprite(ListCharacters::GetCharacter(s, selection == s ? 2 : 0), ListCharacters::GetWidth(s), ListCharacters::GetHeight(s), 80+100*s, 200-ListCharacters::GetHeight(s), false);
     }
     vga.swapBuffer();
 

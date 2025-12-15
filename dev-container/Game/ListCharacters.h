@@ -9,12 +9,15 @@
 
 #define nbCharacters 5
 
+
 class ListCharacters{
 public:
     ListCharacters();
     static unsigned char* GetCharacter(int num, int action);
     static int GetHeight (int num);
     static int GetWidth (int num);
+    static int GetFootLeft(int num);
+    static int GetFootRight(int num);
 };
 
 #endif
