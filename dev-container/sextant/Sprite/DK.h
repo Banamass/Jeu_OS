@@ -3,6 +3,8 @@
 
 #define DK_WIDTH  93
 #define DK_HEIGHT 47
+#define DK_FOOT_LEFT 11
+#define DK_FOOT_RIGHT 62
 
 unsigned char* getDKAction(int action);
 

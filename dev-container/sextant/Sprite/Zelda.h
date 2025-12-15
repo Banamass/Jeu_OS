@@ -3,6 +3,8 @@
 
 #define ZELDA_WIDTH  56
 #define ZELDA_HEIGHT 67
+#define ZELDA_FOOT_LEFT 8
+#define ZELDA_FOOT_RIGHT 33
 
 unsigned char* getZeldaAction (int action);
 

@@ -1,8 +1,10 @@
 #ifndef  MR_H
 #define  MR_H
 
-#define  MR_WIDTH  82
-#define  MR_HEIGHT 51
+#define MR_WIDTH  82
+#define MR_HEIGHT 51
+#define MR_FOOT_LEFT 31
+#define MR_FOOT_RIGHT 31
 
 unsigned char* getMrAction(int action);
 

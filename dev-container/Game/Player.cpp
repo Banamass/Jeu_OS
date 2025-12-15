@@ -31,16 +31,25 @@ void Player::Update(){
 
     if (v.x>0) {
         SetOrientation(false);
+        SetAction(WALK);
     } else if (v.x<0) {
         SetOrientation(true);
+        SetAction(WALK);
+    } else {
+        SetAction(IDLE);
     }
+    if(a.y!=0) {
+        SetAction(JUMP);
+    } 
     
+        
     int bbw = 10;
     int bbh = 2;
     int bbx = (bbw / 2) * 1000;
     int bby = (ListCharacters::GetHeight(character) - bbh) * 1000;
     int bbsx = bbw * 1000;
     int bbsy = bbh * 1000;
+
     if(GetSceneCollisions(p.x + bbx, p.y + bby, bbsx, bbsy)){
         if(!GetSceneCollisions(p.x + bbx, lastPos.y + bby, bbsx, bbsy)
             && v.y > 0){
@@ -69,11 +78,31 @@ void Player::Update(){
     a.y = 0;
     vec2 depletion(30 * dt, 10 * dt);
     Vec2Depletion(v, depletion);
+
+    if (v.x>0) {
+        SetOrientation(false);
+        SetAction(WALK);
+    } else if (v.x<0) {
+        SetOrientation(true);
+        SetAction(WALK);
+    } else {
+        SetAction(IDLE);
+    }
+    if(v.y!=0) {
+        SetAction(JUMP);
+    } 
 }
 
 void Player::Render(){
+    int realX;
+    if (orientation) { // on inverse en miroir le sprite
+        realX = p.x / 1000 - ListCharacters::GetFootRight(character) ;
+    } else {
+        realX = p.x / 1000 - ListCharacters::GetFootLeft(character) ;
+    }
+    int realY = p.y / 1000;
     vga->plot_sprite(ListCharacters::GetCharacter(character, action), ListCharacters::GetWidth(character), ListCharacters::GetHeight(character)
-        , p.x / 1000, p.y / 1000, orientation);
+        , realX, realY, orientation);
 }
 
 void Player::SetKeyConfig(KeyConfig& l_kconf){

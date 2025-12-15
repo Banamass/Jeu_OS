@@ -55,6 +55,7 @@ private:
     int nbJumpLeft;
     
     bool isAttacking;
+
 };
 
 #endif
