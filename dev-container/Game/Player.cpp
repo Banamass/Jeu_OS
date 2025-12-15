@@ -10,44 +10,44 @@ void Player::Update(){
     bool isMoving = false;
     if(clavier.is_pressed(kconf.right)){
         if(nbJumpLeft == 2)
-            SetAction(SPRITE_ACTION::WALK);
+            SetAction(WALK);
         v.x += velocity * dt;
         isMoving = true;
     }
     if(clavier.is_pressed(kconf.left)){
         if(nbJumpLeft == 2)
-            SetAction(SPRITE_ACTION::WALK);
+            SetAction(WALK);
         v.x += -velocity * dt;
         isMoving = true;
     }
     if(!isMoving && nbJumpLeft == 2){
-        SetAction(SPRITE_ACTION::IDLE);
+        SetAction(IDLE);
     }
     if(clavier.is_pressed_then_deleted(kconf.jump) && nbJumpLeft > 0){
         v.y -= jumpVel * dt;
         nbJumpLeft--;
-        SetAction(SPRITE_ACTION::JUMP);
+        SetAction(JUMP);
         Blink();
     }
     if(clavier.is_pressed(kconf.attack)){
-        if(action != SPRITE_ACTION::ATTACK1){
+        if(action != ATTACK1){
             actionBeforeAtkBlock = action;
             SetIsAttacking(true);
         }
     }
     else if(clavier.is_pressed(kconf.special)){
-        if(action != SPRITE_ACTION::ATTACK2){
+        if(action != ATTACK2){
             actionBeforeAtkBlock = action;
             SetIsAttacking(true);
         }
     }
     if(attackAnimationValue <= 100){
-        SetAction(SPRITE_ACTION::ATTACK1);
+        SetAction(ATTACK1);
     }
     else if(clavier.is_pressed(kconf.block)){
-        if(action != SPRITE_ACTION::BLOCK){
+        if(action != BLOCK){
             actionBeforeAtkBlock = action;
-            SetAction(SPRITE_ACTION::IDLE);
+            SetAction(BLOCK);
             SetIsBlocking(true);
         }
     }
@@ -64,20 +64,22 @@ void Player::Update(){
     p.x += v.x * dt;
     p.y += v.y * dt;
     
+        
     int bbw = 10;
     int bbh = 2;
     int bbx = (bbw / 2) * 1000;
     int bby = (ListCharacters::GetHeight(character) - bbh) * 1000;
     int bbsx = bbw * 1000;
     int bbsy = bbh * 1000;
+
     if(GetSceneCollisions(p.x + bbx, p.y + bby, bbsx, bbsy)){
         if(!GetSceneCollisions(p.x + bbx, lastPos.y + bby, bbsx, bbsy)
             && v.y > 0){
             p.y = lastPos.y;
             v.y = 0;
             nbJumpLeft = 2;
-            if(action == SPRITE_ACTION::JUMP)
-                SetAction(SPRITE_ACTION::IDLE);
+            if(action == JUMP)
+                SetAction(IDLE);
         }
         else if(!GetSceneCollisions(lastPos.x + bbx, p.y + bby, bbsx, bbsy)){
             p.x = lastPos.x;
@@ -101,6 +103,13 @@ void Player::Update(){
     vec2 depletion(30 * dt, 10 * dt);
     Vec2Depletion(v, depletion);
 
+    
+    if (v.x>0) {
+        SetOrientation(false);
+    } else if (v.x<0) {
+        SetOrientation(true);
+    }
+
     attackCooldown++;
     attackAnimationValue++;
 }
@@ -111,14 +120,23 @@ void Player::Blink(){
 
 void Player::Render(){
     if(blinkValue % 2 == 0){
+        int realX;
+        if (orientation) { // on inverse en miroir le sprite
+            realX = p.x / 1000 - ListCharacters::GetFootRight(character) ;
+        } else {
+            realX = p.x / 1000 - ListCharacters::GetFootLeft(character) ;
+        }
+        int realY = p.y / 1000;
         vga->plot_sprite(ListCharacters::GetCharacter(character, action), ListCharacters::GetWidth(character), ListCharacters::GetHeight(character)
-            , p.x / 1000, p.y / 1000);
+            , realX, realY, orientation);
     }
+    
     if(blinkValue > 0){
         blinkValue++;
         if(blinkValue > 100)
             blinkValue = 0;
     }
+
 }
 
 void Player::GetIntRectPX(IntRect& res){
@@ -172,6 +190,15 @@ void Player::SetCharacter(int numCharacter) {
 void Player::SetAction(int numAction) {
     action = numAction;
 }
+
+void Player::SetOrientation(bool flip) {
+    orientation = flip;
+}
+
+/*
+IntRect Player::GetIntRect(){
+    return IntRect(p, vec2(10,10));
+}*/
 
 int Player::GetPercentage(){
     return percentage;

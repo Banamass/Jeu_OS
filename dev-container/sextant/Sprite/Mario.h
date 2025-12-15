@@ -3,6 +3,8 @@
 
 #define MARIO_WIDTH  44
 #define MARIO_HEIGHT 40
+#define MARIO_FOOT_LEFT 1
+#define MARIO_FOOT_RIGHT 23
 
 unsigned char* getMarioAction(int action);
 

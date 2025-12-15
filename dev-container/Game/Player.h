@@ -21,7 +21,7 @@ struct KeyConfig{
 class Player{
 public:
     Player(EcranBochs* l_vga) 
-        : vga(l_vga), p(), v(), a(), nbJumpLeft(0), isAttacking(false), attackAnimationValue(10000){}
+        : vga(l_vga), p(), v(), a(), nbJumpLeft(0), isAttacking(false), attackAnimationValue(10000),orientation(false){}
     ~Player(){}
 
     void Update();
@@ -30,6 +30,7 @@ public:
     void SetKeyConfig(KeyConfig& kconf);
     void SetCharacter(int numCharacter);
     void SetAction(int numAction) ;
+    void SetOrientation(bool flip);
 
     void GetIntRectPX(IntRect& res);
     void GetIntRectPY(IntRect& res);
@@ -58,6 +59,7 @@ private:
     int character;
     int action;
     int percentage;
+    bool orientation; //false : right et true : left
 
     vec2 p;
     vec2 v;
