@@ -67,3 +67,35 @@ int ListCharacters::GetWidth(int num){
         return MARIO_WIDTH;
     }
 }
+
+int ListCharacters::GetFootLeft(int num){
+    switch (num) 
+    {
+    case 0:
+        return ZELDA_FOOT_LEFT;
+    case 1:
+        return YOSHI_FOOT_LEFT;
+    case 2:
+        return DK_FOOT_LEFT;
+    case 3:
+        return MR_FOOT_LEFT;
+    case 4:
+        return MARIO_FOOT_LEFT;
+    }
+}
+
+int ListCharacters::GetFootRight(int num){
+    switch (num) 
+    {
+    case 0:
+        return ZELDA_FOOT_RIGHT;
+    case 1:
+        return YOSHI_FOOT_RIGHT;
+    case 2:
+        return DK_FOOT_RIGHT;
+    case 3:
+        return MR_FOOT_RIGHT;
+    case 4:
+        return MARIO_FOOT_RIGHT;
+    }
+}

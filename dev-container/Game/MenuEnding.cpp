@@ -26,7 +26,8 @@ void MenuEnding::run() {
                 SPRITE_P1_WIDTH,
                 SPRITE_P1_HEIGHT,
                 (640 - SPRITE_P1_WIDTH) / 2,
-                200
+                200,
+                false
             );
         }else if (winner == 2) {
             vga.plot_sprite(
@@ -34,7 +35,8 @@ void MenuEnding::run() {
                 SPRITE_P2_WIDTH,
                 SPRITE_P2_HEIGHT,
                 (640 - SPRITE_P2_WIDTH) / 2,
-                200
+                200,
+                false
             );
         }   
 
@@ -46,7 +48,8 @@ void MenuEnding::run() {
                 SPRITE_PE_WIDTH,
                 SPRITE_PE_HEIGHT,
                 (640 - SPRITE_PE_WIDTH) / 2,
-                280
+                280,
+                false
             );
         }
 
@@ -59,6 +62,8 @@ void MenuEnding::run() {
         }
 
         if (clavier.is_pressed_then_deleted(AZERTY::K_RETURN)) {
+            vga.clear(0);
+	        vga.swapBuffer();
             return;
         }
     }

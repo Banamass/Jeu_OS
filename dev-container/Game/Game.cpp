@@ -22,11 +22,17 @@ Game::Game(int p1, int p2) : vga(640, 480, VBE_MODE::_8), player1(&vga), player2
     kconf.left = AZERTY::K_Q;
     kconf.right = AZERTY::K_D;
     kconf.jump = AZERTY::K_S;
+    kconf.attack = AZERTY::K_Z;
+    kconf.special = AZERTY::K_A;
+    kconf.block = AZERTY::K_E;
     player1.SetKeyConfig(kconf);
 
     kconf.left = AZERTY::K_K;;
     kconf.right = AZERTY::K_M;
     kconf.jump = AZERTY::K_L;
+    kconf.attack = AZERTY::K_O;
+    kconf.special = AZERTY::K_I;
+    kconf.block = AZERTY::K_P;
     player2.SetKeyConfig(kconf);
 
     player1.SetCharacter(p1);
@@ -72,7 +78,7 @@ int Game::run(){
 void Game::Render(){
     vga.clear(140);
 
-    vga.plot_sprite(sprite_scene, SCENE_WIDTH, SCENE_HEIGHT, (640-SCENE_WIDTH)/2, (480-SCENE_HEIGHT)/2);
+    vga.plot_sprite(sprite_scene, SCENE_WIDTH, SCENE_HEIGHT, (640-SCENE_WIDTH)/2, (480-SCENE_HEIGHT)/2, false);
     player1.Render();
     player2.Render();
 
@@ -114,7 +120,7 @@ void Game::ThreadRender(void* arg) {
 void Game::UpdateLogic() {
     if (state != GameState::Playing) return;
 
-
+    
     if(clavier.is_pressed(AZERTY::K_X)){
         player2.Kill();
     }
@@ -122,6 +128,40 @@ void Game::UpdateLogic() {
     if(clavier.is_pressed(AZERTY::K_B)){
         player1.Kill();
     }
+    
+    if(player1.GetIsAttacking()){
+        IntRect rectAtck;
+        player1.GetAttackRectPX(rectAtck);
+        player1.GetAttackRectPY(rectAtck);
+        player1.GetAttackRectSX(rectAtck);
+        player1.GetAttackRectSY(rectAtck);
+        IntRect rectBlock;
+        player2.GetAttackRectPX(rectBlock);
+        player2.GetAttackRectPY(rectBlock);
+        player2.GetAttackRectSX(rectBlock);
+        player2.GetAttackRectSY(rectBlock);
+        if(Intersect(rectAtck, rectBlock)){
+            player2.TakePercentage(10);
+        }
+        player1.SetIsAttacking(false);
+    }
+    if(player2.GetIsAttacking()){
+        IntRect rectAtck;
+        player2.GetAttackRectPX(rectAtck);
+        player2.GetAttackRectPY(rectAtck);
+        player2.GetAttackRectSX(rectAtck);
+        player2.GetAttackRectSY(rectAtck);
+        IntRect rectBlock;
+        player1.GetAttackRectPX(rectBlock);
+        player1.GetAttackRectPY(rectBlock);
+        player1.GetAttackRectSX(rectBlock);
+        player1.GetAttackRectSY(rectBlock);
+        if(Intersect(rectAtck, rectBlock)){
+            player1.TakePercentage(10);
+        }
+        player2.SetIsAttacking(false);
+    }
+
 
     if (player1.IsDead() && !player2.IsDead()) {
         winner = 2;
@@ -132,4 +172,5 @@ void Game::UpdateLogic() {
         state = GameState::Ended;
         running = false;
     }
+    
 }

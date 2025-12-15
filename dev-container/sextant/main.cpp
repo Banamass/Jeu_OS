@@ -64,7 +64,7 @@ void demo_bochs_8() {
 	int offset = 0;
 	while (true) {
 		vga.clear(1);
-		vga.plot_sprite(sprite_yoshi_attack2, YOSHI_WIDTH, YOSHI_HEIGHT, offset, 200);
+		vga.plot_sprite(sprite_yoshi_attack2, YOSHI_WIDTH, YOSHI_HEIGHT, offset, 200, false);
 		offset = (offset+1) % (640);
 		vga.swapBuffer(); // call this after you finish drawing your frame to display it, it avoids screen tearing
 	}
@@ -134,11 +134,7 @@ extern "C" void Sextant_main(unsigned long magic, unsigned long addr){
 		MenuEnding ending(winner);
 		ending.run();
 	}
-
-	EcranBochs vga(640, 480, VBE_MODE::_8);
-	vga.init();
-	vga.clear(0);   // noir
-	vga.swapBuffer();
+	
 
 
 
