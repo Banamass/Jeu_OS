@@ -3,6 +3,7 @@
 ## I. Introduction décrivant le jeu et ses fonctionnalités
 
 ### Introduction
+
 Notre OS est une reproduction du jeu Smash Bros d’une manière plus simplifiée
 avec moins de fonctionnalités. L’objectif principal était de mettre en oeuvre les notions
 vus en cours, notamment:
@@ -13,6 +14,7 @@ vus en cours, notamment:
 sans système d’exploitation hôte (autre que le nôtre).
 
 ### Présentation du jeu
+
 Notre jeu propose les fonctionnalités suivantes:
 - Un menu principal permettant de démarrer ou quitter le jeu
 - Une sélection de personnages parmi 5 personnages différents
@@ -23,6 +25,7 @@ chaque joueur possède plusieurs actions à sa disposition
 dégâts)
 
 ### Personnages
+
 Chaque personnage dispose de caractéristiques propres (sprite, animations), et peut
 effectuer les actions suivantes:
 - Se déplacer horizontalement
@@ -38,6 +41,7 @@ nouveaux combattants.
 L’application est organisée en plusieurs modules principaux afin de faciliter l’ajout de nouveaux combattants.
 
 ### Main
+
 Le module Main initialise l’environnement d’exécution avant de lancer le jeu.
 Il est notamment responsable de:
 - Initialisation du matériel
@@ -48,13 +52,16 @@ Il est notamment responsable de:
 personnages et lancement de la partie)
 
 ### MenuMain
+
 C’est l’écran d'accueil. Il permet soit de lancer une partie soit de quitter le jeu.
 
 ### MenuCharacters
+
 Pour la sélection des personnages, le Joueur 1 choisit en premier et le Joueur 2 choisit
 ensuite parmi les personnages restants.
 
 ### Game
+
 C’est le cœur de l’application. Il est responsable de:
 - la création et la gestion des threads
 - la logique de jeu
@@ -62,11 +69,13 @@ C’est le cœur de l’application. Il est responsable de:
 - la synchronisation entre les différentes activités
 
 ### Menu de fin
+
 C’est le menu qui se lance à la fin et qui affiche qui a gagné.
 
 ## III. Détails et justifications d'implémentation sur la manière de gérer les activités,la synchronisation et la mémoire
 
 ### Gestion des activités (threads)
+
 Lorsque les 2 joueurs ont choisi leur personnage, la méthode run() de Game se lance.
 Celle-ci s’exécute dans le thread principal et est responsable de la logique globale (règles du jeu et combat). A l’intérieur de cette méthode, plusieurs threads se lancent:
 - Thread Player 1 : met à jour l’état du joueur 1
@@ -78,10 +87,12 @@ Cette organisation nous permet d’avoir une bonne séparation des responsabilit
 Cette organisation permet de limiter les risques de race conditions en isolant les mises à jour locales des joueurs dans des threads distincts, tout en confiant la logique globale à un thread central.
 
 ### Synchronisation
+
 Comme mentionné précédemment, plusieurs threads accèdent à des données
 partagées (position des joueurs, état et données du jeu), une synchronisation est donc indispensable.
 
 ### Choix de synchronisation
+
 La synchronisation est assurée à l’aide d’un SpinLock (celui déjà présent dans le code fourni), créé en tant qu’attribut dans la classe Game.
 
 Avant toute modification ou lecture de l’état partagé:
@@ -92,6 +103,7 @@ Avant toute modification ou lecture de l’état partagé:
 A la fin de ces opérations, chaque thread fait un appel à thread_yield() pour donner la main aux autres threads.
 
 ### Gestion de la mémoire
+
 Le projet s’exécute dans un environnement sans runtime C++ standard:
 - pas de pile pour le stockage dynamique
 - pas de new / delete
@@ -102,6 +114,7 @@ Ainsi, tous nos objets sont alloués:
 - soit par valeur
 
 ### Gravité
+
 Chaque joueur est modélisé à l’aide des grandeurs physiques standards:
 - une position
 - une vitesse
@@ -114,6 +127,7 @@ Lorsqu’une touche de déplacement est pressée, une variation de vitesse est a
 Afin d’éviter des déplacements irréalistes ou instantanés, un mécanisme de friction est introduit. Il consiste à réduire progressivement la vitesse du joueur à chaque frame, ce qui permet d’obtenir un mouvement plus naturel et contrôlé.
 
 ### Collisions
+
 Il n’y a que des collisions d’un player avec les sols et plateformes. La zone de collision d’un personnage est située principalement au niveau de la base du sprite, ce qui correspond au point de contact avec le sol.
 
 Lorsqu’un déplacement est calculé, une nouvelle position “candidate” est déterminée.
