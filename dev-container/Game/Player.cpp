@@ -30,24 +30,24 @@ void Player::Update(){
         Blink();
     }
     if(clavier.is_pressed(kconf.attack)){
-        if(action != ATT1){
+        if(action != ATTACK1){
             actionBeforeAtkBlock = action;
             SetIsAttacking(true);
         }
     }
     else if(clavier.is_pressed(kconf.special)){
-        if(action != ATT2){
+        if(action != ATTACK2){
             actionBeforeAtkBlock = action;
             SetIsAttacking(true);
         }
     }
     if(attackAnimationValue <= 100){
-        SetAction(ATT1);
+        SetAction(ATTACK1);
     }
     else if(clavier.is_pressed(kconf.block)){
         if(action != BLOCK){
             actionBeforeAtkBlock = action;
-            SetAction(IDLE);
+            SetAction(BLOCK);
             SetIsBlocking(true);
         }
     }
@@ -63,19 +63,6 @@ void Player::Update(){
 
     p.x += v.x * dt;
     p.y += v.y * dt;
-
-    if (v.x>0) {
-        SetOrientation(false);
-        SetAction(WALK);
-    } else if (v.x<0) {
-        SetOrientation(true);
-        SetAction(WALK);
-    } else {
-        SetAction(IDLE);
-    }
-    if(a.y!=0) {
-        SetAction(JUMP);
-    } 
     
         
     int bbw = 10;
@@ -115,6 +102,13 @@ void Player::Update(){
     a.y = 0;
     vec2 depletion(30 * dt, 10 * dt);
     Vec2Depletion(v, depletion);
+
+    
+    if (v.x>0) {
+        SetOrientation(false);
+    } else if (v.x<0) {
+        SetOrientation(true);
+    }
 
     attackCooldown++;
     attackAnimationValue++;

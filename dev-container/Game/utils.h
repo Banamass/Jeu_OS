@@ -3,6 +3,15 @@
 
 #include "sextant/types.h"
 
+enum SPRITE_ACTION{
+    IDLE = 0,
+    WALK = 1,
+    ATTACK1 = 2,
+    ATTACK2 = 3,
+    BLOCK = 4,
+    JUMP = 5
+};
+
 struct vec2{
     vec2() {}
     vec2(int l_x, int l_y) : x(l_x), y(l_y){}
