@@ -24,6 +24,8 @@ public:
         : vga(l_vga), p(), v(), a(), nbJumpLeft(0), isAttacking(false){}
     ~Player(){}
 
+    enum class LifeState { Alive, Ejecting, Dead };
+
     void Update();
     void Render();
 
@@ -37,6 +39,11 @@ public:
     void TakePercentage(int l_percentage);
     bool GetIsAttacking();
     bool SetIsAttacking();
+
+    void Kill();
+    bool IsDead(){return state == LifeState::Dead;};
+    bool IsEjecting(){return state == LifeState::Ejecting;};
+    LifeState GetLifeState(){return state;};
 
 private:
     EcranBochs* vga;
@@ -53,6 +60,9 @@ private:
     int nbJumpLeft;
     
     bool isAttacking;
+
+    LifeState state = LifeState::Alive;
+
 };
 
 #endif

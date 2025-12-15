@@ -3,6 +3,21 @@
 void Player::Update(){
     int dt = 1;
 
+    if (state == LifeState::Ejecting) {
+        p.y += v.y * dt;
+        p.x += v.x * dt;
+        int h = ListCharacters::GetHeight(character);
+        if ((p.y / 1000) + 2*h < 0) {
+            state = LifeState::Dead;
+        }
+        return;
+    }
+    if (state == LifeState::Dead) {
+        return;
+    }
+
+
+
     int velocity = 40;
     int gravity = 20;
     int jumpVel = 2 * 1000;
@@ -99,4 +114,15 @@ bool Player::GetIsAttacking(){
 }
 bool Player::SetIsAttacking(){
 
+}
+
+void Player::Kill() {
+    if (state != LifeState::Alive) return;
+    state = LifeState::Ejecting;
+
+    v.x = 1000;
+    a.x = 0;
+    a.y = 0;
+
+    v.y = -1000;
 }

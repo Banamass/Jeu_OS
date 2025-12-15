@@ -30,7 +30,7 @@
 #include "Game/Game.h"
 #include "Game/MenuMain.h"
 #include "Game/MenuCharacters.h"
-//#include "Game/HUD.h"
+#include "Game/MenuEnding.h"
 
 extern char __e_kernel,__b_kernel, __b_data, __e_data,  __b_stack, __e_load ;
 int i;
@@ -122,31 +122,25 @@ extern "C" void Sextant_main(unsigned long magic, unsigned long addr){
 	
     MenuMain mm;
     int choice = mm.run();
-	/*
-    switch (choice)
-    {
-    case 0:
-        ecran.effacerEcran(NOIR);
-        ecran.afficherMot(5,10,"START");
-        //break;
-    case 1:
-        ecran.effacerEcran(NOIR);
-        ecran.afficherMot(5,10,"QUIT");
-        //break;
-    default:
-        ecran.effacerEcran(NOIR);
-        ecran.afficherMot(5,10,"ERREUR");
-        //break;
-    }
-	*/
-	
-	MenuCharacters mc;
-	int choiceP1 = mc.run(1);
-	int choiceP2 = mc.run(2);
-	
+	if(!choice){
+		MenuCharacters mc;
+		int choiceP1 = mc.run(1);
+		int choiceP2 = mc.run(2);
+		
 
-	Game game(choiceP1, choiceP2);
-	game.run();
+		Game game(choiceP1, choiceP2);
+		int winner = game.run();
+		
+		MenuEnding ending(winner);
+		ending.run();
+	}
+
+	EcranBochs vga(640, 480, VBE_MODE::_8);
+	vga.init();
+	vga.clear(0);   // noir
+	vga.swapBuffer();
+
+
 
 	// demo_vga();
 
