@@ -23,6 +23,8 @@ public:
     Player(EcranBochs* l_vga): vga(l_vga), p(200, 0), v(), a(), nbJumpLeft(0), isAttacking(false), attackAnimationValue(10000),orientation(false){}
     ~Player(){}
 
+    enum class LifeState { Alive, Ejecting, Dead };
+
     void Update();
     void Render();
 
@@ -49,6 +51,11 @@ public:
 
     void Blink();
 
+    void Kill();
+    bool IsDead(){return state == LifeState::Dead;};
+    bool IsEjecting(){return state == LifeState::Ejecting;};
+    LifeState GetLifeState(){return state;};
+
 private:
     EcranBochs* vga;
     int blinkValue;
@@ -68,6 +75,9 @@ private:
     int nbJumpLeft;
     
     bool isAttacking;
+
+    LifeState state = LifeState::Alive;
+
     int attackCooldown;
     int attackAnimationValue;
     bool isBlocking;

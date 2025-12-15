@@ -15,12 +15,18 @@ public:
     Game(int p1, int p2);
     ~Game();
 
-    void run();
+    int run();
 
     void Update();
     void Render();
 
 private:
+
+    enum class GameState { 
+        Playing, 
+        Ended 
+    };
+
 
     static void ThreadPlayer(void* arg);
     static void ThreadRender(void* arg);
@@ -30,9 +36,14 @@ private:
     Player player1;
     Player player2;
     EcranBochs vga;
+    Clavier clavier;
 
     Spinlock spin;
     int gameLock = 0;
+
+    bool running = true;
+    int winner = 0;
+    GameState state = GameState::Playing;
 
     HUD hud;
 };

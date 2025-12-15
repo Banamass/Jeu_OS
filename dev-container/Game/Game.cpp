@@ -3,6 +3,7 @@
 #include <sextant/ordonnancements/preemptif/thread.h>
 #include <sextant/Synchronisation/Spinlock/Spinlock.h>
 #include "HUD.h"
+#include "sextant/Sprite/player1_wins.h"
 
 struct PlayerThreadArgs {
     Game* game;
@@ -45,7 +46,7 @@ Game::~Game(){
 
 }
 
-void Game::run(){
+int Game::run(){
     static PlayerThreadArgs argsP1;
     static PlayerThreadArgs argsP2;
 
@@ -55,17 +56,23 @@ void Game::run(){
     argsP2.game = this;
     argsP2.player = &player2;
 
+
+    running = true;
+    winner = 0;
+    state = GameState::Playing;
+
     // Thread Render
     // 1 Thread par player
     create_kernel_thread(ThreadPlayer, &argsP1);
     create_kernel_thread(ThreadPlayer, &argsP2);
     create_kernel_thread(ThreadRender, this);
 
-    while(1){
+    while(running){
         spin.Take(&gameLock);
         UpdateLogic();
         spin.Release(&gameLock);
     }
+    return winner;
 }
 
 void Game::Render(){
@@ -86,28 +93,42 @@ void Game::ThreadPlayer(void* arg) {
     Player* player = args->player;
     Game* game = args->game;
 
-    while (1) {
+    while (game->running) {
         game->spin.Take(&game->gameLock);
         player->Update();
         game->spin.Release(&game->gameLock);
         thread_yield();
     }
+    thread_exit();
 }
 
 void Game::ThreadRender(void* arg) {
     Game* game = (Game*)arg;
 
-    while (1) {
+    while (game->running) {
         game->spin.Take(&game->gameLock);
         game->Render();
         game->spin.Release(&game->gameLock);
         thread_yield();
     }
+
+    thread_exit();
 }
 
 
 
 void Game::UpdateLogic() {
+    if (state != GameState::Playing) return;
+
+    
+    if(clavier.is_pressed(AZERTY::K_X)){
+        player2.Kill();
+    }
+
+    if(clavier.is_pressed(AZERTY::K_B)){
+        player1.Kill();
+    }
+    
     if(player1.GetIsAttacking()){
         IntRect rectAtck;
         player1.GetAttackRectPX(rectAtck);
@@ -140,4 +161,16 @@ void Game::UpdateLogic() {
         }
         player2.SetIsAttacking(false);
     }
+
+
+    if (player1.IsDead() && !player2.IsDead()) {
+        winner = 2;
+        state = GameState::Ended;
+        running = false;
+    } else if (player2.IsDead() && !player1.IsDead()) {
+        winner = 1;
+        state = GameState::Ended;
+        running = false;
+    }
+    
 }
