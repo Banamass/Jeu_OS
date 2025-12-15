@@ -120,16 +120,24 @@ void Game::UpdateLogic() {
         player2.GetAttackRectSX(rectBlock);
         player2.GetAttackRectSY(rectBlock);
         if(Intersect(rectAtck, rectBlock)){
-            player1.SetIsAttacking(false);
-            player2.Blink();
             player2.TakePercentage(10);
         }
+        player1.SetIsAttacking(false);
     }
     if(player2.GetIsAttacking()){
-        //IntRect rectAtck = player2.GetAttackRect();
-        //IntRect rectBlock = player1.GetIntRect();
+        IntRect rectAtck;
+        player2.GetAttackRectPX(rectAtck);
+        player2.GetAttackRectPY(rectAtck);
+        player2.GetAttackRectSX(rectAtck);
+        player2.GetAttackRectSY(rectAtck);
+        IntRect rectBlock;
+        player1.GetAttackRectPX(rectBlock);
+        player1.GetAttackRectPY(rectBlock);
+        player1.GetAttackRectSX(rectBlock);
+        player1.GetAttackRectSY(rectBlock);
+        if(Intersect(rectAtck, rectBlock)){
+            player1.TakePercentage(10);
+        }
         player2.SetIsAttacking(false);
-        player1.Blink();
-        player1.TakePercentage(10);
     }
 }
