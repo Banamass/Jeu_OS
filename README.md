@@ -40,7 +40,7 @@ nouveaux combattants.
 
 L’application est organisée en plusieurs modules principaux afin de faciliter l’ajout de nouveaux combattants.
 
-### Main
+### Main
 
 Le module Main initialise l’environnement d’exécution avant de lancer le jeu.
 Il est notamment responsable de:
@@ -51,16 +51,16 @@ Il est notamment responsable de:
 - Lancement de l’application (Affichage du menu principal, sélection des
 personnages et lancement de la partie)
 
-### MenuMain
+### MenuMain
 
 C’est l’écran d'accueil. Il permet soit de lancer une partie soit de quitter le jeu.
 
-### MenuCharacters
+### MenuCharacters
 
 Pour la sélection des personnages, le Joueur 1 choisit en premier et le Joueur 2 choisit
 ensuite parmi les personnages restants.
 
-### Game
+### Game
 
 C’est le cœur de l’application. Il est responsable de:
 - la création et la gestion des threads
@@ -68,13 +68,13 @@ C’est le cœur de l’application. Il est responsable de:
 - le rendu graphique
 - la synchronisation entre les différentes activités
 
-### Menu de fin
+### Menu de fin
 
 C’est le menu qui se lance à la fin et qui affiche qui a gagné.
 
-## III. Détails et justifications d'implémentation sur la manière de gérer les activités,la synchronisation et la mémoire
+## III. Détails et justifications d'implémentation sur la manière de gérer les activités,la synchronisation et la mémoire
 
-### Gestion des activités (threads)
+### Gestion des activités (threads)
 
 Lorsque les 2 joueurs ont choisi leur personnage, la méthode run() de Game se lance.
 Celle-ci s’exécute dans le thread principal et est responsable de la logique globale (règles du jeu et combat). A l’intérieur de cette méthode, plusieurs threads se lancent:
@@ -91,7 +91,7 @@ Cette organisation permet de limiter les risques de race conditions en isolant l
 Comme mentionné précédemment, plusieurs threads accèdent à des données
 partagées (position des joueurs, état et données du jeu), une synchronisation est donc indispensable.
 
-### Choix de synchronisation
+### Choix de synchronisation
 
 La synchronisation est assurée à l’aide d’un SpinLock (celui déjà présent dans le code fourni), créé en tant qu’attribut dans la classe Game.
 
@@ -102,7 +102,7 @@ Avant toute modification ou lecture de l’état partagé:
 
 A la fin de ces opérations, chaque thread fait un appel à thread_yield() pour donner la main aux autres threads.
 
-### Gestion de la mémoire
+### Gestion de la mémoire
 
 Le projet s’exécute dans un environnement sans runtime C++ standard:
 - pas de pile pour le stockage dynamique
@@ -113,7 +113,7 @@ Ainsi, tous nos objets sont alloués:
 - soit statiquement
 - soit par valeur
 
-### Gravité
+### Gravité
 
 Chaque joueur est modélisé à l’aide des grandeurs physiques standards:
 - une position
@@ -126,7 +126,7 @@ Lorsqu’une touche de déplacement est pressée, une variation de vitesse est a
 
 Afin d’éviter des déplacements irréalistes ou instantanés, un mécanisme de friction est introduit. Il consiste à réduire progressivement la vitesse du joueur à chaque frame, ce qui permet d’obtenir un mouvement plus naturel et contrôlé.
 
-### Collisions
+### Collisions
 
 Il n’y a que des collisions d’un player avec les sols et plateformes. La zone de collision d’un personnage est située principalement au niveau de la base du sprite, ce qui correspond au point de contact avec le sol.
 
@@ -136,7 +136,7 @@ Une détection de collision est ensuite effectuée:
 - si le déplacement en y provoque une pénétration dans l’objet, le déplacement en y est annulé
 - si les deux axes sont concernés, dans la plupart des cas, les déplacements dans les deux axes sont annulés (sauf dans des cas spécifiques de collisions en diagonale)
 
-### Hitbox
+### Hitbox
 Les personnages et les plateformes sont modélisés par des hitboxes rectangulaires définies par 4 coordonnées. Pour tester les collisions, on teste simplement l’intersection de 2 rectangles.
 
 Pour stocker ces hitbox en mémoire, on le fait dans un tableau statique. Si nous avons n objets, nous avons donc n hitbox à stocker et ce tableau contiendra 4*n valeurs.
@@ -144,7 +144,7 @@ Pour stocker ces hitbox en mémoire, on le fait dans un tableau statique. Si nou
 Nous avons essayé d’utiliser des struct mais nous avons rencontré beaucoup de
 problèmes au runtime lors du passage ou du retour de structure en argument. Nous ne sommes pas sûrs des raisons exactes de ces problèmes, mais l’environnement restreint par rapport au C++ standard n’a probablement pas aidé.
 
-## IV. Conclusion
+## IV. Conclusion
 
 Ce projet nous a permis d’appliquer concrètement les notions fondamentales vues en cours, notamment la gestion des threads, la synchronisation et l’accès direct au matériel, dans un environnement sans système d’exploitation hôte.
 
