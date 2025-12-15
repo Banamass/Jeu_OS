@@ -136,10 +136,10 @@ void Game::UpdateLogic() {
         player1.GetAttackRectSX(rectAtck);
         player1.GetAttackRectSY(rectAtck);
         IntRect rectBlock;
-        player2.GetAttackRectPX(rectBlock);
-        player2.GetAttackRectPY(rectBlock);
-        player2.GetAttackRectSX(rectBlock);
-        player2.GetAttackRectSY(rectBlock);
+        player2.GetIntRectPX(rectBlock);
+        player2.GetIntRectPY(rectBlock);
+        player2.GetIntRectSX(rectBlock);
+        player2.GetIntRectSY(rectBlock);
         if(Intersect(rectAtck, rectBlock)){
             player2.TakePercentage(10);
         }
@@ -152,10 +152,10 @@ void Game::UpdateLogic() {
         player2.GetAttackRectSX(rectAtck);
         player2.GetAttackRectSY(rectAtck);
         IntRect rectBlock;
-        player1.GetAttackRectPX(rectBlock);
-        player1.GetAttackRectPY(rectBlock);
-        player1.GetAttackRectSX(rectBlock);
-        player1.GetAttackRectSY(rectBlock);
+        player1.GetIntRectPX(rectBlock);
+        player1.GetIntRectPY(rectBlock);
+        player1.GetIntRectSX(rectBlock);
+        player1.GetIntRectSY(rectBlock);
         if(Intersect(rectAtck, rectBlock)){
             player1.TakePercentage(10);
         }

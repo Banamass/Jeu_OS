@@ -1,15 +1,10 @@
 #include "scene.h"
 
-//6 272 466 272
-//59 190 129 189
-//197 126 286 126
-//350 190 420 190
-
 int objects_sprite[4 * NB_OBJECTS] = {
   90, 340, 460, 200, //Main floor
-   145, 250, 55, 2,  //Left
-   440, 250, 55, 2,  //Right
-   290, 190, 70, 2   //Middle
+  145, 250, 55, 2,  //Left
+  440, 250, 55, 2,  //Right
+  290, 190, 70, 2   //Middle
 };
 
 unsigned char sprite_scene[SCENE_WIDTH*SCENE_HEIGHT] = {

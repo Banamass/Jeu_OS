@@ -115,8 +115,9 @@ void Player::Update(){
     if(p.x > (640 - ListCharacters::GetWidth(character)) * 1000){
         p.x = lastPos.x;
     }
-    if(p.x < -10){
-        p.x = 0;
+
+    if(p.x <= 0 * 1000){
+        p.x = 0 * 1000;
     }
 
     a.x = 0;
@@ -143,9 +144,12 @@ void Player::Render(){
     if(blinkValue % 2 == 0){
         int realX;
         if (orientation) { // on inverse en miroir le sprite
-            realX = p.x / 1000 - ListCharacters::GetFootRight(character) ;
+            realX = p.x / 1000 - ListCharacters::GetFootRight(character);
         } else {
-            realX = p.x / 1000 - ListCharacters::GetFootLeft(character) ;
+            realX = p.x / 1000 - ListCharacters::GetFootLeft(character);
+        }
+        if(realX <= 0){
+            realX = 0;
         }
         int realY = p.y / 1000;
         vga->plot_sprite(ListCharacters::GetCharacter(character, action), ListCharacters::GetWidth(character), ListCharacters::GetHeight(character)
@@ -170,19 +174,19 @@ void Player::GetIntRectSX(IntRect& res){
     res.size.x = ListCharacters::GetWidth(character) * 1000;
 }
 void Player::GetIntRectSY(IntRect& res){
-    res.size.y = ListCharacters::GetWidth(character) * 1000;
+    res.size.y = ListCharacters::GetHeight(character) * 1000;
 }
 void Player::GetAttackRectPX(IntRect& res){
-    res.pos.x = p.x + (goRight ? ListCharacters::GetWidth(character) : -20) * 1000;
+    res.pos.x = p.x;
 }
 void Player::GetAttackRectPY(IntRect& res){
     res.pos.y = p.y;
 }
 void Player::GetAttackRectSX(IntRect& res){
-    res.size.x = 20 * 1000;
+    res.size.x = 30 * 1000;
 }
 void Player::GetAttackRectSY(IntRect& res){
-    res.size.y = 50 * 1000;
+    res.size.y = ListCharacters::GetHeight(character) * 1000;
 }
 void Player::SetKeyConfig(KeyConfig& l_kconf){
     kconf = l_kconf;

@@ -20,7 +20,8 @@ struct KeyConfig{
 
 class Player{
 public:
-    Player(EcranBochs* l_vga): vga(l_vga), p(200, 0), v(), a(), nbJumpLeft(0), isAttacking(false), attackAnimationValue(10000),orientation(false){}
+    Player(EcranBochs* l_vga): vga(l_vga), p(600, 100), v(), a(), nbJumpLeft(0), isAttacking(false), attackAnimationValue(10000),orientation(false),
+        state(Player::LifeState::Alive){}
     ~Player(){}
 
     enum class LifeState { Alive, Ejecting, Dead };
