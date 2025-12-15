@@ -21,7 +21,7 @@ struct KeyConfig{
 class Player{
 public:
     Player(EcranBochs* l_vga) 
-        : vga(l_vga), p(), v(), a(), nbJumpLeft(0), isAttacking(false), attackAnimationValue(10000){}
+        : vga(l_vga), p(200, 0), v(), a(), nbJumpLeft(0), isAttacking(false), attackAnimationValue(10000){}
     ~Player(){}
 
     void Update();
@@ -61,6 +61,7 @@ private:
 
     vec2 p;
     vec2 v;
+    bool goRight;
     vec2 a;
 
     int nbJumpLeft;

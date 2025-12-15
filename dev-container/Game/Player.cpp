@@ -13,12 +13,14 @@ void Player::Update(){
             SetAction(SPRITE_ACTION::WALK);
         v.x += velocity * dt;
         isMoving = true;
+        goRight = true;
     }
     if(clavier.is_pressed(kconf.left)){
         if(nbJumpLeft == 2)
             SetAction(SPRITE_ACTION::WALK);
         v.x += -velocity * dt;
         isMoving = true;
+        goRight = false;
     }
     if(!isMoving && nbJumpLeft == 2){
         SetAction(SPRITE_ACTION::IDLE);
@@ -27,7 +29,6 @@ void Player::Update(){
         v.y -= jumpVel * dt;
         nbJumpLeft--;
         SetAction(SPRITE_ACTION::JUMP);
-        Blink();
     }
     if(clavier.is_pressed(kconf.attack)){
         if(action != SPRITE_ACTION::ATTACK1){
@@ -35,7 +36,7 @@ void Player::Update(){
             SetIsAttacking(true);
         }
     }
-    else if(clavier.is_pressed(kconf.special)){
+    if(clavier.is_pressed(kconf.special)){
         if(action != SPRITE_ACTION::ATTACK2){
             actionBeforeAtkBlock = action;
             SetIsAttacking(true);
@@ -44,12 +45,15 @@ void Player::Update(){
     if(attackAnimationValue <= 100){
         SetAction(SPRITE_ACTION::ATTACK1);
     }
-    else if(clavier.is_pressed(kconf.block)){
+    if(clavier.is_pressed(kconf.block)){
         if(action != SPRITE_ACTION::BLOCK){
             actionBeforeAtkBlock = action;
-            SetAction(SPRITE_ACTION::IDLE);
+            SetAction(SPRITE_ACTION::BLOCK);
             SetIsBlocking(true);
         }
+    }
+    else{
+        SetIsBlocking(false);
     }
     a.y += gravity;
 
@@ -122,7 +126,7 @@ void Player::Render(){
 }
 
 void Player::GetIntRectPX(IntRect& res){
-    res.pos.x = p.x + (v.x > 0 ? ListCharacters::GetWidth(character) + 20 : -20) * 1000;
+    res.pos.x = p.x;
 }
 void Player::GetIntRectPY(IntRect& res){
     res.pos.y = p.y;
@@ -134,33 +138,17 @@ void Player::GetIntRectSY(IntRect& res){
     res.size.y = ListCharacters::GetWidth(character) * 1000;
 }
 void Player::GetAttackRectPX(IntRect& res){
-    res.pos.x = p.x;
+    res.pos.x = p.x + (goRight ? ListCharacters::GetWidth(character) : -20) * 1000;
 }
 void Player::GetAttackRectPY(IntRect& res){
     res.pos.y = p.y;
 }
 void Player::GetAttackRectSX(IntRect& res){
-    res.size.x = 50 * 1000;
+    res.size.x = 20 * 1000;
 }
 void Player::GetAttackRectSY(IntRect& res){
-    res.size.y = 70 * 1000;
+    res.size.y = 50 * 1000;
 }
-
-/*void Player::GetAttackRect(IntRect& res){
-    res.pos.x = p.x;
-    res.pos.y = p.y;
-    res.pos.x += (v.x > 0 ? ListCharacters::GetWidth(character) + 20 : -20) * 1000;
-    res.size.x = 50 * 1000;
-    res.size.y = 70 * 1000;
-}
-
-void Player::GetIntRect(IntRect& res){
-    res.pos.x = p.x;
-    res.pos.y = p.y;
-    res.size.x = ListCharacters::GetWidth(character);
-    res.size.y = ListCharacters::GetHeight(character);
-}*/
-
 void Player::SetKeyConfig(KeyConfig& l_kconf){
     kconf = l_kconf;
 }
@@ -178,7 +166,10 @@ int Player::GetPercentage(){
 }
 
 void Player::TakePercentage(int l_percentage){
+    if(isBlocking)
+        return;
     percentage = (percentage + l_percentage) % 101;
+    Blink();
 }
 
 bool Player::GetIsAttacking(){
