@@ -50,6 +50,7 @@ void Player::Update(){
         if(action != ATTACK1){
             actionBeforeAtkBlock = action;
             SetIsAttacking(true);
+            SetAttack(1);
         }
     }
 
@@ -57,10 +58,15 @@ void Player::Update(){
         if(action != SPRITE_ACTION::ATTACK2){
             actionBeforeAtkBlock = action;
             SetIsAttacking(true);
+            SetAttack(2);
         }
     }
     if(attackAnimationValue <= 100){
-        SetAction(ATTACK1);
+        if (attack == 1) {
+            SetAction(ATTACK1);
+        } else if (attack == 2) {
+            SetAction(ATTACK2);
+        }
     }
     if(clavier.is_pressed(kconf.block)){
         if(action != SPRITE_ACTION::BLOCK){
@@ -215,16 +221,22 @@ void Player::SetKeyConfig(KeyConfig& l_kconf){
 }
 
 void Player::SetCharacter(int numCharacter) {
+    // Associe à l'attribut character le numéro du personnage joué
     character = numCharacter;
 }
 
 void Player::SetAction(int numAction) {
+    // Associe à l'attribut action le numéro de l'action réalisée par le personnage
     action = numAction;
 }
 
 void Player::SetOrientation(bool flip) {
+    // Modifie l'attribut orientation avec un booléen pour indiquer de quel côté est orienté le personnage : 
+    // true : sens inversé du sprite défini dans le tableau - personnage regarde vers la gauche
+    // false : sens du sprite défini dans le tableau - personnage regarde vers la droite
     orientation = flip;
 }
+
 
 /*
 IntRect Player::GetIntRect(){
@@ -258,6 +270,10 @@ void Player::SetIsAttacking(bool b){
     }
 }
 
+void Player::SetAttack(int num) {
+    // Associe à l'attribut attack le numéro de l'attaque en cours (1 ou 2)
+    attack = num;
+}
 
 void Player::Kill() {
     if (state != LifeState::Alive) return;

@@ -51,6 +51,7 @@ public:
     void TakePercentage(int l_percentage);
     bool GetIsAttacking();
     void SetIsAttacking(bool b);
+    void SetAttack(int num);
     bool GetIsBlocking();
     void SetIsBlocking(bool b);
 
@@ -80,6 +81,7 @@ private:
     int nbJumpLeft;
     
     bool isAttacking;
+    int attack;
 
     LifeState state = LifeState::Alive;
 
