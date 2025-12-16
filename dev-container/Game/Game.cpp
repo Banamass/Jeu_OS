@@ -67,7 +67,7 @@ int Game::run(){
     create_kernel_thread(ThreadPlayer, &argsP2);
     create_kernel_thread(ThreadRender, this);
 
-    while(running){
+    while(running){ 
         spin.Take(&gameLock);
         UpdateLogic();
         spin.Release(&gameLock);
@@ -79,10 +79,14 @@ void Game::Render(){
     vga.clear(140);
 
     vga.plot_sprite(sprite_scene, SCENE_WIDTH, SCENE_HEIGHT, (640-SCENE_WIDTH)/2, (480-SCENE_HEIGHT)/2, false);
+
     player1.Render();
     player2.Render();
 
+    
+
     hud.Render(&vga, player1, player2);
+    
 
     vga.swapBuffer(); // call this after you finish drawing your frame to display it, it avoids screen tearing
 }
@@ -130,11 +134,11 @@ void Game::UpdateLogic() {
     }
     
     if(player1.GetIsAttacking()){
-        IntRect rectAtck;
-        player1.GetAttackRectPX(rectAtck);
-        player1.GetAttackRectPY(rectAtck);
-        player1.GetAttackRectSX(rectAtck);
-        player1.GetAttackRectSY(rectAtck);
+        IntRect rectAtck; //attack1 toujours, a changer
+        player1.GetAttack1RectPX(rectAtck);
+        player1.GetAttack1RectPY(rectAtck);
+        player1.GetAttack1RectSX(rectAtck);
+        player1.GetAttack1RectSY(rectAtck);
         IntRect rectBlock;
         player2.GetIntRectPX(rectBlock);
         player2.GetIntRectPY(rectBlock);
@@ -146,11 +150,11 @@ void Game::UpdateLogic() {
         player1.SetIsAttacking(false);
     }
     if(player2.GetIsAttacking()){
-        IntRect rectAtck;
-        player2.GetAttackRectPX(rectAtck);
-        player2.GetAttackRectPY(rectAtck);
-        player2.GetAttackRectSX(rectAtck);
-        player2.GetAttackRectSY(rectAtck);
+        IntRect rectAtck; //a changer
+        player2.GetAttack1RectPX(rectAtck);
+        player2.GetAttack1RectPY(rectAtck);
+        player2.GetAttack1RectSX(rectAtck);
+        player2.GetAttack1RectSY(rectAtck);
         IntRect rectBlock;
         player1.GetIntRectPX(rectBlock);
         player1.GetIntRectPY(rectBlock);

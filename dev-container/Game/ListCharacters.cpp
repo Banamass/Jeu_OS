@@ -99,3 +99,51 @@ int ListCharacters::GetFootRight(int num){
         return MARIO_FOOT_RIGHT;
     }
 }
+
+IntRect ListCharacters::GetIntRectAtt1(int num) {
+    switch (num) 
+    {
+    case 0:
+        return IntRect(vec2(ZELDA_ORIGINE_X_ATT,0), vec2(ZELDA_X_ATT1, ZELDA_Y_ATT1));
+    case 1:
+        return IntRect(vec2(YOSHI_ORIGINE_X_ATT,0), vec2(YOSHI_X_ATT1, YOSHI_Y_ATT));
+    case 2:
+        return IntRect(vec2(DK_ORIGINE_X_ATT1,0), vec2(DK_X_ATT1, DK_HEIGHT));
+    case 3:
+        return IntRect(vec2(MR_ORIGINE_X_ATT1,0), vec2(MR_X_ATT1, MR_HEIGHT));
+    case 4:
+        return IntRect(vec2(MARIO_ORIGINE_X_ATT1,0), vec2(MARIO_X_ATT1, MARIO_Y_ATT1));
+    }
+}
+
+IntRect ListCharacters::GetIntRectAtt2(int num) {
+    switch (num) 
+    {
+    case 0:
+        return IntRect(vec2(ZELDA_ORIGINE_X_ATT,0), vec2(ZELDA_X_ATT2, ZELDA_HEIGHT));
+    case 1:
+        return IntRect(vec2(YOSHI_ORIGINE_X_ATT,0), vec2(YOSHI_X_ATT2, YOSHI_Y_ATT));
+    case 2:
+        return IntRect(vec2(DK_ORIGINE_X_ATT2,0), vec2(DK_X_ATT2, DK_HEIGHT));
+    case 3:
+        return IntRect(vec2(MR_ORIGINE_X_ATT2,0), vec2(MR_X_ATT2, MR_HEIGHT));
+    case 4:
+        return IntRect(vec2(MARIO_ORIGINE_X_ATT2,0), vec2(MARIO_X_ATT2, MARIO_Y_ATT2));
+    }
+}
+
+IntRect ListCharacters::GetIntRect(int num) {
+    switch (num) 
+    {
+    case 0:
+        return IntRect(vec2(-ZELDA_CHAR_WIDTH/2+5,0), vec2(ZELDA_CHAR_WIDTH, ZELDA_CHAR_HEIGHT));
+    case 1:
+        return IntRect(vec2(-YOSHI_CHAR_WIDTH/2+5,0), vec2(YOSHI_CHAR_WIDTH, YOSHI_HEIGHT));
+    case 2:
+        return IntRect(vec2(-DK_CHAR_WIDTH/2+5,0), vec2(DK_CHAR_WIDTH, DK_CHAR_HEIGHT));
+    case 3:
+        return IntRect(vec2(-MR_CHAR_WIDTH/2+5,0), vec2(MR_CHAR_WIDTH, MR_CHAR_HEIGHT));
+    case 4:
+        return IntRect(vec2(-MARIO_CHAR_WIDTH/2+5,0), vec2(MARIO_CHAR_WIDTH, MARIO_CHAR_HEIGHT));
+    }
+}

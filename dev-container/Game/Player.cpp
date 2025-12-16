@@ -154,6 +154,7 @@ void Player::Render(){
         int realY = p.y / 1000;
         vga->plot_sprite(ListCharacters::GetCharacter(character, action), ListCharacters::GetWidth(character), ListCharacters::GetHeight(character)
             , realX, realY, orientation);
+            
     }
     
     if(blinkValue > 0){
@@ -165,28 +166,49 @@ void Player::Render(){
 }
 
 void Player::GetIntRectPX(IntRect& res){
-    res.pos.x = p.x;
+    IntRect intrec = ListCharacters::GetIntRect(character);
+    res.pos.x = p.x + intrec.pos.x*1000 ;
 }
 void Player::GetIntRectPY(IntRect& res){
-    res.pos.y = p.y;
+    res.pos.y = ListCharacters::GetIntRect(character).pos.y*1000 + p.y;
 }
 void Player::GetIntRectSX(IntRect& res){
-    res.size.x = ListCharacters::GetWidth(character) * 1000;
+    res.size.x = ListCharacters::GetIntRect(character).size.x *1000;
 }
 void Player::GetIntRectSY(IntRect& res){
-    res.size.y = ListCharacters::GetHeight(character) * 1000;
+    res.size.y = ListCharacters::GetIntRect(character).size.y *1000;
 }
-void Player::GetAttackRectPX(IntRect& res){
-    res.pos.x = p.x;
+void Player::GetAttack1RectPX(IntRect& res){
+    if (orientation) {
+        res.pos.x = p.x - ListCharacters::GetIntRectAtt1(character).pos.x*1000 -ListCharacters::GetIntRectAtt1(character).size.x *1000 +10*1000  ;
+    } else {
+        res.pos.x = p.x + ListCharacters::GetIntRectAtt1(character).pos.x*1000  ;
+    }
 }
-void Player::GetAttackRectPY(IntRect& res){
-    res.pos.y = p.y;
+void Player::GetAttack1RectPY(IntRect& res){
+    res.pos.y = ListCharacters::GetIntRectAtt1(character).pos.y*1000 + p.y;
 }
-void Player::GetAttackRectSX(IntRect& res){
-    res.size.x = 30 * 1000;
+void Player::GetAttack1RectSX(IntRect& res){
+    res.size.x = ListCharacters::GetIntRectAtt1(character).size.x *1000;
 }
-void Player::GetAttackRectSY(IntRect& res){
-    res.size.y = ListCharacters::GetHeight(character) * 1000;
+void Player::GetAttack1RectSY(IntRect& res){
+    res.size.y = ListCharacters::GetIntRectAtt1(character).size.y *1000;
+}
+void Player::GetAttack2RectPX(IntRect& res){
+    if (orientation) {
+        res.pos.x = p.x - ListCharacters::GetIntRectAtt2(character).pos.x*1000 -ListCharacters::GetIntRectAtt2(character).size.x *1000 +10*1000  ;
+    } else {
+        res.pos.x = p.x + ListCharacters::GetIntRectAtt2(character).pos.x*1000  ;
+    }
+}
+void Player::GetAttack2RectPY(IntRect& res){
+    res.pos.y = ListCharacters::GetIntRectAtt2(character).pos.y*1000 + p.y;
+}
+void Player::GetAttack2RectSX(IntRect& res){
+    res.size.x = ListCharacters::GetIntRectAtt2(character).size.x *1000;
+}
+void Player::GetAttack2RectSY(IntRect& res){
+    res.size.y = ListCharacters::GetIntRectAtt2(character).size.y *1000;
 }
 void Player::SetKeyConfig(KeyConfig& l_kconf){
     kconf = l_kconf;

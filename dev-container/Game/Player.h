@@ -38,10 +38,14 @@ public:
     void GetIntRectPY(IntRect& res);
     void GetIntRectSX(IntRect& res);
     void GetIntRectSY(IntRect& res);
-    void GetAttackRectPX(IntRect& res);
-    void GetAttackRectPY(IntRect& res);
-    void GetAttackRectSX(IntRect& res);
-    void GetAttackRectSY(IntRect& res);
+    void GetAttack1RectPX(IntRect& res);
+    void GetAttack1RectPY(IntRect& res);
+    void GetAttack1RectSX(IntRect& res);
+    void GetAttack1RectSY(IntRect& res);
+    void GetAttack2RectPX(IntRect& res);
+    void GetAttack2RectPY(IntRect& res);
+    void GetAttack2RectSX(IntRect& res);
+    void GetAttack2RectSY(IntRect& res);
 
     int GetPercentage();
     void TakePercentage(int l_percentage);
