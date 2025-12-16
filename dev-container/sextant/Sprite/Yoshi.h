@@ -3,8 +3,16 @@
 
 #define YOSHI_WIDTH  88
 #define YOSHI_HEIGHT 47
-#define YOSHI_FOOT_LEFT 3
-#define YOSHI_FOOT_RIGHT 62
+#define YOSHI_FOOT_LEFT 15
+#define YOSHI_FOOT_RIGHT 63
+
+#define YOSHI_X_ATT1 27
+#define YOSHI_ORIGINE_X_ATT 20 // 15+5
+#define YOSHI_X_ATT2 53
+#define YOSHI_Y_ATT 37
+
+#define YOSHI_CHAR_WIDTH 40
+
 
 unsigned char* getYoshiAction (int action);
 

@@ -10,16 +10,18 @@ MenuCharacters::MenuCharacters()
     vga.set_palette(palette_vga);
     }
 
-int MenuCharacters::run(int player){ // player = 1 ou 2
+int MenuCharacters::run(int player){ 
+    // player = 1 ou 2
+    // renvoie le numéro du personnage choisi
     act_player=player;
     update();
     while(1){
         if (act_player==1) { // premier joueur
             bool q_now = clavier.is_pressed_then_deleted(AZERTY::K_Q);
             bool d_now = clavier.is_pressed_then_deleted(AZERTY::K_D);
-            if (q_now) {
+            if (q_now) { //se déplace vers la gauche
                 selection = (selection -1 + nbCharacters) % nbCharacters;
-            } else if (d_now) {
+            } else if (d_now) { //se déplace vers la droite
                 selection = (selection +1) % nbCharacters;
             }
         } else { // 2e joueur
@@ -27,12 +29,12 @@ int MenuCharacters::run(int player){ // player = 1 ou 2
             bool m_now = clavier.is_pressed_then_deleted(AZERTY::K_M);
             if (k_now) {
                 selection = (selection -1 + nbCharacters) % nbCharacters;
-                if (selection == choice_player1) { // ne peut pas choisir celui du premier
+                if (selection == choice_player1) { // ne peut pas choisir celui du premier joueur
                     selection = (selection -1 + nbCharacters) % nbCharacters;
                 }
             } else if (m_now) {
                 selection = (selection +1) % nbCharacters;
-                if (selection == choice_player1) { // ne peut pas choisir celui du premier
+                if (selection == choice_player1) { // ne peut pas choisir celui du premier joueur
                     selection = (selection +1) % nbCharacters;
                 }
             }
@@ -42,7 +44,7 @@ int MenuCharacters::run(int player){ // player = 1 ou 2
         if(clavier.is_pressed_then_deleted(AZERTY::K_RETURN)){
             if (act_player == 1) {
                 choice_player1 = selection; // on stocke le choix du premier
-                if (choice_player1 == 0) {
+                if (choice_player1 == 0) { // on initialise la prochaine selection
                     selection = 1;
                 } else {
                     selection = 0;
@@ -59,16 +61,14 @@ void MenuCharacters::update(){
     ui8_t color;
     if (act_player == 1) {
         color = 70;
-        //affiche "PLAYER 1 - CHOOSE YOUR CHARACTER"
     } else {
         color = 150;
-        //affiche "PLAYER 2 - CHOOSE YOUR CHARACTER"
     }
 
-    if (choice_player1!=-1) {
+    if (choice_player1!=-1) { // affiche le choix du player1
         vga.plot_square(80+choice_player1*100, 120, 80, 70);
     }
-    vga.plot_square(80+selection*100, 120, 80, color);
+    vga.plot_square(80+selection*100, 120, 80, color); // affiche la selection du joueur
     for (int s=0; s< nbCharacters; s++) {
         vga.plot_sprite(ListCharacters::GetCharacter(s, selection == s ? 2 : 0), ListCharacters::GetWidth(s), ListCharacters::GetHeight(s), 80+100*s, 200-ListCharacters::GetHeight(s), false);
     }

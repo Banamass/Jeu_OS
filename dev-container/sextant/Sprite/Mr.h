@@ -3,8 +3,17 @@
 
 #define MR_WIDTH  82
 #define MR_HEIGHT 51
-#define MR_FOOT_LEFT 31
-#define MR_FOOT_RIGHT 31
+#define MR_FOOT_LEFT 36
+#define MR_FOOT_RIGHT 36
+
+#define MR_X_ATT1 19
+#define MR_ORIGINE_X_ATT1 16 //11+5
+#define MR_ORIGINE_X_ATT2 -36//-41+5
+#define MR_X_ATT2 82
+
+#define MR_CHAR_HEIGHT 47
+#define MR_CHAR_WIDTH 40
+
 
 unsigned char* getMrAction(int action);
 
