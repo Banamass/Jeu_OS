@@ -25,14 +25,14 @@ void Player::Update(){
     bool isMoving = false;
     if(clavier.is_pressed(kconf.right)){
         if(nbJumpLeft == 2)
-            SetAction(WALK);
+            SetAction(SPRITE_ACTION::WALK);
         v.x += velocity * dt;
         isMoving = true;
         goRight = true;
     }
     if(clavier.is_pressed(kconf.left)){
         if(nbJumpLeft == 2)
-            SetAction(WALK);
+            SetAction(SPRITE_ACTION::WALK);
         v.x += -velocity * dt;
         isMoving = true;
         goRight = false;
@@ -47,7 +47,7 @@ void Player::Update(){
 
     }
     if(clavier.is_pressed(kconf.attack)){
-        if(action != ATTACK1){
+        if(action != SPRITE_ACTION::ATTACK1){
             actionBeforeAtkBlock = action;
             SetIsAttacking(true);
             SetAttack(1);
@@ -63,9 +63,9 @@ void Player::Update(){
     }
     if(attackAnimationValue <= 100){
         if (attack == 1) {
-            SetAction(ATTACK1);
+            SetAction(SPRITE_ACTION::ATTACK1);
         } else if (attack == 2) {
-            SetAction(ATTACK2);
+            SetAction(SPRITE_ACTION::ATTACK2);
         }
     }
     if(clavier.is_pressed(kconf.block)){
@@ -132,9 +132,9 @@ void Player::Update(){
     Vec2Depletion(v, depletion);
 
     
-    if (v.x>0) {
+    if (v.x>0) { //s'il se dirige vers la droite, le sprite est dans le bon sens et orientation = false
         SetOrientation(false);
-    } else if (v.x<0) {
+    } else if (v.x<0) { //s'il se dirige vers la gauche, il faut inverser le sprite en miroir et orientation = true
         SetOrientation(true);
     }
 
@@ -149,12 +149,12 @@ void Player::Blink(){
 void Player::Render(){
     if(blinkValue % 2 == 0){
         int realX;
-        if (orientation) { // on inverse en miroir le sprite
+        if (orientation) { // dans le cas on inverse en miroir le sprite pour que le personnage regarde à gauche
             realX = p.x / 1000 - ListCharacters::GetFootRight(character);
         } else {
             realX = p.x / 1000 - ListCharacters::GetFootLeft(character);
         }
-        if(realX <= 0){
+        if(realX <= 0){ // ne peut pas sortir du cadre
             realX = 0;
         }
         int realY = p.y / 1000;
@@ -172,19 +172,29 @@ void Player::Render(){
 }
 
 void Player::GetIntRectPX(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut x
+    // récupère le X de la hitbox du personnage par défaut et l'ajoute à la position du joueur
     IntRect intrec = ListCharacters::GetIntRect(character);
     res.pos.x = p.x + intrec.pos.x*1000 ;
 }
 void Player::GetIntRectPY(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut y
+    // récupère le Y de la hitbox du personnage par défaut et l'ajoute à la position du joueur
     res.pos.y = ListCharacters::GetIntRect(character).pos.y*1000 + p.y;
 }
 void Player::GetIntRectSX(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut sx
+    // récupère la taille selon x de la hitbox du personnage par défaut 
     res.size.x = ListCharacters::GetIntRect(character).size.x *1000;
 }
 void Player::GetIntRectSY(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut sy
+    // récupère la taille selon y de la hitbox du personnage par défaut 
     res.size.y = ListCharacters::GetIntRect(character).size.y *1000;
 }
 void Player::GetAttack1RectPX(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut x
+    // récupère le X de l'attaque 1 du personnage par défaut et l'ajoute à la position du joueur
     if (orientation) {
         res.pos.x = p.x - ListCharacters::GetIntRectAtt1(character).pos.x*1000 -ListCharacters::GetIntRectAtt1(character).size.x *1000 +10*1000  ;
     } else {
@@ -192,15 +202,23 @@ void Player::GetAttack1RectPX(IntRect& res){
     }
 }
 void Player::GetAttack1RectPY(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut y
+    // récupère le Y de l'attaque 1 du personnage par défaut et l'ajoute à la position du joueur
     res.pos.y = ListCharacters::GetIntRectAtt1(character).pos.y*1000 + p.y;
 }
 void Player::GetAttack1RectSX(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut sx
+    // récupère le SX de l'attaque 1 du personnage par défaut
     res.size.x = ListCharacters::GetIntRectAtt1(character).size.x *1000;
 }
 void Player::GetAttack1RectSY(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut sy
+    // récupère le SY de l'attaque 1 du personnage par défaut
     res.size.y = ListCharacters::GetIntRectAtt1(character).size.y *1000;
 }
 void Player::GetAttack2RectPX(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut x
+    // récupère le X de l'attaque 2 du personnage par défaut et l'ajoute à la position du joueur
     if (orientation) {
         res.pos.x = p.x - ListCharacters::GetIntRectAtt2(character).pos.x*1000 -ListCharacters::GetIntRectAtt2(character).size.x *1000 +10*1000  ;
     } else {
@@ -208,12 +226,18 @@ void Player::GetAttack2RectPX(IntRect& res){
     }
 }
 void Player::GetAttack2RectPY(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut y
+    // récupère le Y de l'attaque 2 du personnage par défaut et l'ajoute à la position du joueur
     res.pos.y = ListCharacters::GetIntRectAtt2(character).pos.y*1000 + p.y;
 }
 void Player::GetAttack2RectSX(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut sx
+    // récupère le SX de l'attaque 2 du personnage par défaut
     res.size.x = ListCharacters::GetIntRectAtt2(character).size.x *1000;
 }
 void Player::GetAttack2RectSY(IntRect& res){
+    // prend un pointeur de IntRec en argument et modifie son attribut sy
+    // récupère le SY de l'attaque 2 du personnage par défaut
     res.size.y = ListCharacters::GetIntRectAtt2(character).size.y *1000;
 }
 void Player::SetKeyConfig(KeyConfig& l_kconf){
